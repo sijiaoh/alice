@@ -1,0 +1,18 @@
+{
+  "name": "editor-core",
+  "private": true,
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "lint": "yarn share:lint",
+    "fix": "yarn share:fix",
+    "lix": "yarn share:lix"
+  },
+  "dependencies": {
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.1"
+  }
+}
