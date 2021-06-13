@@ -518,6 +518,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv-generator@workspace:packages/dotenv-generator":
+  version: 0.0.0-use.local
+  resolution: "dotenv-generator@workspace:packages/dotenv-generator"
+  dependencies:
+    "@typescript-eslint/eslint-plugin": ^4.26.1
+    eslint: ^7.28.0
+    eslint-config-airbnb-typescript: ^12.3.1
+    eslint-config-prettier: ^8.3.0
+    eslint-plugin-import: ^2.23.4
+    eslint-plugin-json: ^3.0.0
+    eslint-plugin-prettier: ^3.4.0
+    npm-run-all: ^4.1.5
+    prettier: ^2.3.1
+    typescript: ^4.3.2
+  languageName: unknown
+  linkType: soft
+
 "editor-core@workspace:packages/editor-core":
   version: 0.0.0-use.local
   resolution: "editor-core@workspace:packages/editor-core"
