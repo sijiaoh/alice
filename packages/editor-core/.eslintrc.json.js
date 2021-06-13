@@ -1,1 +1,1 @@
-../../eslint/.eslintrc.json.js
+../default-ts-configs/.eslintrc.json.js
