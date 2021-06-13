@@ -1,4 +1,1 @@
-module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
-};
+../default-ts-configs/jest.config.js

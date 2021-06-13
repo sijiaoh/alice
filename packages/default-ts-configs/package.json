@@ -1,5 +1,5 @@
 {
-  "name": "dotenv-generator",
+  "name": "default-ts-configs",
   "private": true,
   "engines": {
     "node": "14.x"
@@ -22,8 +22,6 @@
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "commander": "^7.2.0",
     "cross-env": "^7.0.3",
-    "default-ts-configs": "workspace:packages/default-ts-configs",
-    "dotenv": "^10.0.0",
     "eslint": "^7.28.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.3.0",
