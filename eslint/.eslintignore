@@ -3,3 +3,4 @@ build
 tmp
 generated
 __tests__
+__snapshots__
