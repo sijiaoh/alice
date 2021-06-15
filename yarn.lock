@@ -4656,6 +4656,14 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
+"reactive-class@workspace:packages/reactive-class":
+  version: 0.0.0-use.local
+  resolution: "reactive-class@workspace:packages/reactive-class"
+  dependencies:
+    default-ts-configs: "workspace:packages/default-ts-configs"
+  languageName: unknown
+  linkType: soft
+
 "read-pkg-up@npm:^3.0.0":
   version: 3.0.0
   resolution: "read-pkg-up@npm:3.0.0"
