@@ -1,23 +1,23 @@
-export interface Store {
-  onChange: () => void;
-}
+import autobind from 'autobind-decorator';
+import { Subject } from 'rxjs';
 
-export interface ReactiveClassConstructorParams {
-  store: Store;
-}
-
+@autobind
 export class ReactiveClass {
-  constructor({ store }: ReactiveClassConstructorParams) {
-    this.store = store;
-    return new Proxy(this, {
+  constructor() {
+    const self = new Proxy(this, {
       set: (target, p: keyof ReactiveClass, value: never) => {
         // eslint-disable-next-line no-param-reassign
         target[p] = value;
-        this.store.onChange();
+        this.subject.next(self);
         return true;
       },
     });
+    return self;
   }
 
-  private store: Store;
+  get observable() {
+    return this.subject.asObservable();
+  }
+
+  private subject = new Subject<this>();
 }

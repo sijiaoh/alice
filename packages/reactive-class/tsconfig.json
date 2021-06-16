@@ -1,1 +1,4 @@
-../default-ts-configs/tsconfig.json
+{
+  "extends": "../default-ts-configs/tsconfig.json",
+  "compilerOptions": { "experimentalDecorators": true }
+}

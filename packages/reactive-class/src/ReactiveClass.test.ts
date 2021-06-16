@@ -2,14 +2,6 @@
 
 import { ReactiveClass } from './ReactiveClass';
 
-class Store {
-  count = 0;
-
-  onChange() {
-    this.count += 1;
-  }
-}
-
 class SomeClass extends ReactiveClass {
   num = 0;
   str = '';
@@ -17,19 +9,37 @@ class SomeClass extends ReactiveClass {
 }
 
 describe('ReactiveClass', () => {
-  describe('change property', () => {
-    it('to be trigger store onChange event', () => {
-      const store = new Store();
-      const some = new SomeClass({ store });
+  describe('subscribe', () => {
+    it('call callback function when class properties changed', () => {
+      const some = new SomeClass();
+
+      let count = 0;
+      const subscription = some.observable.subscribe((s) => {
+        expect(s).toBe(some);
+        count += 1;
+      });
 
       some.num += 1;
       some.str = '';
       some.obj = { key: 1 };
 
-      expect(some.num).toBe(1);
+      subscription.unsubscribe();
+
+      let count2 = 0;
+      some.observable.subscribe((s) => {
+        expect(s).toBe(some);
+        count2 += 1;
+      });
+
+      some.num += 1;
+      some.str = '';
+      some.obj = { key: 1 };
+
+      expect(some.num).toBe(2);
       expect(some.str).toBe('');
       expect(some.obj.key).toBe(1);
-      expect(store.count).toBe(6);
+      expect(count).toBe(3);
+      expect(count2).toBe(3);
     });
   });
 });

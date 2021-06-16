@@ -1233,6 +1233,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"autobind-decorator@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "autobind-decorator@npm:2.4.0"
+  checksum: 4dc094f74669781d0740ffb9df7c8aad849e7db250b265842b753190868a407c324118f3600d24284fd093c58106d7f5c13568e2a8bd8f24513efb80c2dc1450
+  languageName: node
+  linkType: hard
+
 "babel-jest@npm:^27.0.2":
   version: 27.0.2
   resolution: "babel-jest@npm:27.0.2"
@@ -4663,6 +4670,7 @@ fsevents@^2.3.2:
     "@types/jest": ^26.0.23
     "@types/node": ^15.12.2
     "@typescript-eslint/eslint-plugin": ^4.26.1
+    autobind-decorator: ^2.4.0
     commander: ^7.2.0
     cross-env: ^7.0.3
     default-ts-configs: "workspace:packages/default-ts-configs"
@@ -4675,6 +4683,7 @@ fsevents@^2.3.2:
     jest: ^27.0.4
     npm-run-all: ^4.1.5
     prettier: ^2.3.1
+    rxjs: ^7.1.0
     ts-jest: ^27.0.3
     typescript: ^4.3.2
   languageName: unknown
@@ -4811,6 +4820,15 @@ fsevents@^2.3.2:
   dependencies:
     queue-microtask: ^1.2.2
   checksum: 3d12f0251ad043ed52689523b1e5fa5b7e5395a6ae0d2cbfb880a3009bb297de6d7e96ba4ad5a818e2722b42cea78a5ee6842d6d864736a7ca755ec119ed097c
+  languageName: node
+  linkType: hard
+
+"rxjs@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "rxjs@npm:7.1.0"
+  dependencies:
+    tslib: ~2.1.0
+  checksum: e4d71512e71278002f8399e0741b6a51b383b74476b687074961bc3a66ed48d657fa7b77a6d6dc07535fe265abd9d510afbcab598f86dba3218e76470f0ec3e7
   languageName: node
   linkType: hard
 
@@ -5388,6 +5406,13 @@ fsevents@^2.3.2:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: f44fe7f216946b17d3e3074df3746372703cf24e9127b4c045511456e8e4bf25515fb0a1bb3937676cc305651c5d4fcb6377b0588a4c6a957e748c4c28905d17
+  languageName: node
+  linkType: hard
+
+"tslib@npm:~2.1.0":
+  version: 2.1.0
+  resolution: "tslib@npm:2.1.0"
+  checksum: d8f5bdd067611651c6b846c2388f4dc8ba1f5af124e66105f5263d1ad56da17f4b8c6566887ca2f205c5a9758451871ceca87d5d06087af2dca1699c5e33db69
   languageName: node
   linkType: hard
 
