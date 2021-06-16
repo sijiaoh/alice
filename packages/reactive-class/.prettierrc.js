@@ -1,0 +1,1 @@
+../default-ts-configs/.prettierrc.js

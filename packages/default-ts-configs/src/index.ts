@@ -76,6 +76,7 @@ const link = ({ force }: { force?: boolean } = {}) => {
     '.eslintrc.js',
     '.eslintrc.json.js',
     '.prettierignore',
+    '.prettierrc.js',
     'jest.config.js',
     'tsconfig.eslint.json',
     'tsconfig.json',
