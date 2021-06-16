@@ -1,10 +1,10 @@
-import { execSync } from "child_process";
-import { EOL } from "os";
-import path from "path";
-import fs from "fs";
-import { Command } from "commander";
+import { execSync } from 'child_process';
+import fs from 'fs';
+import { EOL } from 'os';
+import path from 'path';
+import { Command } from 'commander';
 
-const thisPath = path.join("..", "default-ts-configs");
+const thisPath = path.join('..', 'default-ts-configs');
 
 interface Package {
   engines?: { node: string };
@@ -15,7 +15,7 @@ interface Package {
 const program = new Command();
 
 const nodeVersion = () => {
-  const packageJsonStr = "package.json";
+  const packageJsonStr = 'package.json';
 
   const srcPackageJson = fs
     .readFileSync(path.join(thisPath, packageJsonStr))
@@ -31,7 +31,7 @@ const nodeVersion = () => {
 };
 
 const scripts = ({ force }: { force?: boolean } = {}) => {
-  const packageJsonStr = "package.json";
+  const packageJsonStr = 'package.json';
 
   const srcPackageJson = fs
     .readFileSync(path.join(thisPath, packageJsonStr))
@@ -43,16 +43,15 @@ const scripts = ({ force }: { force?: boolean } = {}) => {
   if (!srcPackage.scripts) return;
 
   destPackage.scripts ||= {};
-  Object.keys(srcPackage.scripts).forEach((key) => {
-    if (!destPackage.scripts![key] || force)
-      destPackage.scripts![key] = srcPackage.scripts![key];
+  Object.entries(srcPackage.scripts).forEach(([key, value]) => {
+    if (!destPackage.scripts![key] || force) destPackage.scripts![key] = value;
   });
 
   fs.writeFileSync(packageJsonStr, JSON.stringify(destPackage, null, 2) + EOL);
 };
 
 const dependencies = () => {
-  const packageJsonStr = "package.json";
+  const packageJsonStr = 'package.json';
 
   const srcPackageJson = fs
     .readFileSync(path.join(thisPath, packageJsonStr))
@@ -64,8 +63,8 @@ const dependencies = () => {
   if (!srcPackage.dependencies) return;
 
   destPackage.dependencies ||= {};
-  Object.keys(srcPackage.dependencies).forEach((key) => {
-    destPackage.dependencies![key] = srcPackage.dependencies![key];
+  Object.entries(srcPackage.dependencies).forEach(([key, value]) => {
+    destPackage.dependencies![key] = value;
   });
 
   fs.writeFileSync(packageJsonStr, JSON.stringify(destPackage, null, 2) + EOL);
@@ -73,18 +72,18 @@ const dependencies = () => {
 
 const link = ({ force }: { force?: boolean } = {}) => {
   const symlinkList = [
-    ".eslintignore",
-    ".eslintrc.js",
-    ".eslintrc.json.js",
-    ".prettierignore",
-    "jest.config.js",
-    "tsconfig.eslint.json",
-    "tsconfig.json",
+    '.eslintignore',
+    '.eslintrc.js',
+    '.eslintrc.json.js',
+    '.prettierignore',
+    'jest.config.js',
+    'tsconfig.eslint.json',
+    'tsconfig.json',
   ];
 
   symlinkList.forEach((file) => {
     try {
-      execSync(`ln -s${force ? "f" : ""} ${path.join(thisPath, file)} ${file}`);
+      execSync(`ln -s${force ? 'f' : ''} ${path.join(thisPath, file)} ${file}`);
     } catch {
       // Do nothing.
     }
@@ -92,9 +91,9 @@ const link = ({ force }: { force?: boolean } = {}) => {
 };
 
 program
-  .command("bootstrap")
-  .description("Run scripts and link")
-  .option("-f, --force", "Pass force option to scripts.")
+  .command('bootstrap')
+  .description('Run scripts and link')
+  .option('-f, --force', 'Pass force option to scripts.')
   .action(({ force }) => {
     nodeVersion();
     scripts({ force });
@@ -103,27 +102,27 @@ program
   });
 
 program
-  .command("nodeVersion")
+  .command('nodeVersion')
   .description(
-    "Use src package.json to override the dest package.json node version."
+    'Use src package.json to override the dest package.json node version.'
   )
   .action(nodeVersion);
 
 program
-  .command("scripts")
-  .description("Add default yarn scripts to package.json.")
-  .option("-f, --force", "Overwrite scripts")
+  .command('scripts')
+  .description('Add default yarn scripts to package.json.')
+  .option('-f, --force', 'Overwrite scripts')
   .action(scripts);
 
 program
-  .command("dependencies")
-  .description("Add default yarn dependencies to package.json.")
+  .command('dependencies')
+  .description('Add default yarn dependencies to package.json.')
   .action(dependencies);
 
 program
-  .command("link")
-  .description("Link symlinks.")
-  .option("-f, --force", "Overwrite files.")
+  .command('link')
+  .description('Link symlinks.')
+  .option('-f, --force', 'Overwrite files.')
   .action(link);
 
 program.parse(process.argv);

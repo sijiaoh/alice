@@ -1,14 +1,14 @@
-import { Command } from "commander";
-import path from "path";
-import fs from "fs";
-import { generate } from "./generate";
+import fs from 'fs';
+import path from 'path';
+import { Command } from 'commander';
+import { generate } from './generate';
 
-export const defaultPath = "src/generated/env.ts";
+export const defaultPath = 'src/generated/env.ts';
 
 const program = new Command();
 
 program
-  .command("generate [to]")
+  .command('generate [to]')
   .description(`Generate ${defaultPath} from dotenv.`)
   .action((to = defaultPath) => {
     fs.mkdirSync(path.dirname(to), { recursive: true });

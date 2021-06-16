@@ -1,1 +1,1 @@
-export * from "./ReactiveClass";
+export * from './ReactiveClass';
