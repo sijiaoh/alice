@@ -3,8 +3,10 @@
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
-    "outDir": "build"
+    "outDir": "build",
+    "experimentalDecorators": true,
+    "jsx": "react"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }

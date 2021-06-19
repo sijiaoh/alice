@@ -13,6 +13,7 @@ export const useSelector = <T>(callback: () => T, rcs: ReactiveClass[]) => {
     return () => {
       unsubscribes.forEach((unsubscribe) => unsubscribe());
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, rcs);
 
   return value;

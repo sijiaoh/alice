@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   extends: [
-    'airbnb-typescript/base',
+    'airbnb-typescript',
+    'plugin:react-hooks/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
@@ -28,5 +29,12 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'error',
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/promise-function-async': 'error',
+
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: '(useSelector)',
+      },
+    ],
   },
 };
