@@ -51,6 +51,15 @@ const scripts = ({ force }: { force?: boolean } = {}) => {
 };
 
 const dependencies = () => {
+  const syncDependencies = [
+    'eslint',
+    'prettier',
+    'typescript',
+    'jest',
+    'npm-run-all',
+    '@types/jest',
+  ];
+
   const packageJsonStr = 'package.json';
 
   const srcPackageJson = fs
@@ -64,6 +73,7 @@ const dependencies = () => {
 
   destPackage.dependencies ||= {};
   Object.entries(srcPackage.dependencies).forEach(([key, value]) => {
+    if (!syncDependencies.includes(key)) return;
     destPackage.dependencies![key] = value;
   });
 
