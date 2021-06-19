@@ -10,7 +10,7 @@ export class ReactiveClass {
         // @ts-ignore
         // eslint-disable-next-line no-param-reassign
         target[p] = value;
-        this.subject.next(self);
+        this.subject.next();
         return true;
       },
     });
@@ -21,7 +21,7 @@ export class ReactiveClass {
     this.subject.complete();
   }
 
-  subscribe(arg: Partial<Observer<this>> | ((value: this) => void)) {
+  subscribe(arg: Partial<Observer<void>> | (() => void)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const subscription = this.subject.subscribe(arg as any);
     return () => subscription.unsubscribe();
@@ -31,5 +31,5 @@ export class ReactiveClass {
     return this.subject.asObservable();
   }
 
-  private subject = new Subject<this>();
+  private subject = new Subject<void>();
 }

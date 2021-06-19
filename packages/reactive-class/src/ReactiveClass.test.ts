@@ -14,8 +14,7 @@ describe('ReactiveClass', () => {
       const some = new SomeClass();
 
       let count = 0;
-      const unsubscribe = some.subscribe((s) => {
-        expect(s).toBe(some);
+      const unsubscribe = some.subscribe(() => {
         count += 1;
       });
 
@@ -27,8 +26,7 @@ describe('ReactiveClass', () => {
 
       let count2 = 0;
       some.subscribe({
-        next: (s) => {
-          expect(s).toBe(some);
+        next: () => {
           count2 += 1;
         },
       });

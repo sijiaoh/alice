@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import { ReactiveClass } from './ReactiveClass';
 
-export const useSelector = <T extends ReactiveClass, R>(
-  v: T,
-  callback: (v: T) => R
-) => {
-  const [value, setValue] = useState(callback(v));
+export const useSelector = <T>(callback: () => T, rcs: ReactiveClass[]) => {
+  const [value, setValue] = useState(callback());
 
   useEffect(() => {
-    return v.subscribe((lv) => {
-      setValue(callback(lv));
-    });
-  }, []);
+    const unsubscribes = rcs.map((rc) =>
+      rc.subscribe(() => {
+        setValue(callback());
+      })
+    );
+    return () => {
+      unsubscribes.forEach((unsubscribe) => unsubscribe());
+    };
+  }, rcs);
 
   return value;
 };
