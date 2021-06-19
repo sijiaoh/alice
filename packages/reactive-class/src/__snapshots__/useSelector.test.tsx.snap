@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useSelector will update render 1`] = `"a"`;
+
+exports[`useSelector will update render 2`] = `"b"`;

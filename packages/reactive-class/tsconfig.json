@@ -1,4 +1,10 @@
 {
   "extends": "../default-ts-configs/tsconfig.json",
-  "compilerOptions": { "experimentalDecorators": true }
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "target": "ES5"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }

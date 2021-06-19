@@ -11,6 +11,7 @@ module.exports = {
     project: 'tsconfig.eslint.json',
   },
   rules: {
+    'no-void': 'off',
     quotes: ['error', 'single'],
 
     'import/prefer-default-export': 'off',
