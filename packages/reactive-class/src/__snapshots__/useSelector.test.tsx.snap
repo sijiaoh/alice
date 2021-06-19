@@ -3,3 +3,5 @@
 exports[`useSelector will update render 1`] = `"a"`;
 
 exports[`useSelector will update render 2`] = `"b"`;
+
+exports[`useSelector will update render 3`] = `null`;

@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { Subject } from 'rxjs';
+import { Observer, Subject } from 'rxjs';
 
 @autobind
 export class ReactiveClass {
@@ -15,6 +15,16 @@ export class ReactiveClass {
       },
     });
     return self;
+  }
+
+  destroy() {
+    this.subject.complete();
+  }
+
+  subscribe(arg: Partial<Observer<this>> | ((value: this) => void)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const subscription = this.subject.subscribe(arg as any);
+    return () => subscription.unsubscribe();
   }
 
   get observable() {

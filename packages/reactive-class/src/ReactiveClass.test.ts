@@ -14,7 +14,7 @@ describe('ReactiveClass', () => {
       const some = new SomeClass();
 
       let count = 0;
-      const subscription = some.observable.subscribe((s) => {
+      const unsubscribe = some.subscribe((s) => {
         expect(s).toBe(some);
         count += 1;
       });
@@ -23,12 +23,14 @@ describe('ReactiveClass', () => {
       some.str = '';
       some.obj = { key: 1 };
 
-      subscription.unsubscribe();
+      unsubscribe();
 
       let count2 = 0;
-      some.observable.subscribe((s) => {
-        expect(s).toBe(some);
-        count2 += 1;
+      some.subscribe({
+        next: (s) => {
+          expect(s).toBe(some);
+          count2 += 1;
+        },
       });
 
       some.num += 1;
@@ -40,6 +42,22 @@ describe('ReactiveClass', () => {
       expect(some.obj.key).toBe(1);
       expect(count).toBe(3);
       expect(count2).toBe(3);
+    });
+  });
+
+  describe('destroy', () => {
+    it('call subject.complete', () => {
+      let called = false;
+
+      const some = new SomeClass();
+      some.subscribe({
+        complete: () => {
+          called = true;
+        },
+      });
+      some.destroy();
+
+      expect(called).toBe(true);
     });
   });
 });

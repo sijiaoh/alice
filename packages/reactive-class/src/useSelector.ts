@@ -8,10 +8,9 @@ export const useSelector = <T extends ReactiveClass, R>(
   const [value, setValue] = useState(callback(v));
 
   useEffect(() => {
-    const subscription = v.observable.subscribe((lv) => {
+    return v.subscribe((lv) => {
       setValue(callback(lv));
     });
-    return () => subscription.unsubscribe();
   }, []);
 
   return value;
