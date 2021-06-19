@@ -4,6 +4,8 @@
   "engines": {
     "node": "14.x"
   },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "lintJson": "eslint --no-eslintrc --config .eslintrc.json.js --ext .json --fix .",
     "lintSrc": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
