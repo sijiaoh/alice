@@ -10,9 +10,9 @@ const program = new Command();
 program
   .command('generate [to]')
   .description(`Generate ${defaultPath} from dotenv.`)
-  .action((to = defaultPath) => {
+  .action(async (to = defaultPath) => {
     fs.mkdirSync(path.dirname(to), { recursive: true });
-    fs.writeFileSync(to, generate());
+    fs.writeFileSync(to, await generate());
   });
 
 program.parse(process.argv);
