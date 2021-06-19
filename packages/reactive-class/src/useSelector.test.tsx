@@ -5,7 +5,7 @@ import { ReactiveClass } from './ReactiveClass';
 import { useSelector } from './useSelector';
 
 describe('useSelector', () => {
-  it('will update render', () => {
+  it('update render when reactive class changed', () => {
     class Some extends ReactiveClass {
       prop = 'a';
     }
