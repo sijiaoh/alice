@@ -3,8 +3,14 @@
 import { ReactiveClass } from './ReactiveClass';
 
 class SomeClass extends ReactiveClass {
-  num = 0;
-  str = '0';
+  constructor() {
+    super();
+    this.num = 0;
+    this.str = '0';
+  }
+
+  num: number;
+  str: string;
   obj = { key: 0 };
 }
 
