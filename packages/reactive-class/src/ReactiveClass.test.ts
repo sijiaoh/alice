@@ -4,7 +4,7 @@ import { ReactiveClass } from './ReactiveClass';
 
 class SomeClass extends ReactiveClass {
   num = 0;
-  str = '';
+  str = '0';
   obj = { key: 0 };
 }
 
@@ -19,7 +19,7 @@ describe('ReactiveClass', () => {
       });
 
       some.num += 1;
-      some.str = '';
+      some.str = '1';
       some.obj = { key: 1 };
 
       unsubscribe();
@@ -32,11 +32,11 @@ describe('ReactiveClass', () => {
       });
 
       some.num += 1;
-      some.str = '';
+      some.str = '2';
       some.obj = { key: 1 };
 
       expect(some.num).toBe(2);
-      expect(some.str).toBe('');
+      expect(some.str).toBe('2');
       expect(some.obj.key).toBe(1);
       expect(count).toBe(3);
       expect(count2).toBe(3);
@@ -56,6 +56,28 @@ describe('ReactiveClass', () => {
       some.destroy();
 
       expect(called).toBe(true);
+    });
+  });
+
+  describe('reacting', () => {
+    it('can control reactive feature', () => {
+      let called = false;
+
+      const some = new SomeClass();
+      some.subscribe(() => {
+        called = true;
+      });
+
+      some.num += 1;
+      expect(called).toBe(true);
+
+      called = false;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (some as any).reacting = false;
+      some.num += 1;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (some as any).reacting = true;
+      expect(called).toBe(false);
     });
   });
 });

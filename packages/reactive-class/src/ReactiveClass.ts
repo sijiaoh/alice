@@ -6,11 +6,12 @@ export class ReactiveClass {
   constructor() {
     const self = new Proxy(this, {
       set: (target, p: keyof ReactiveClass, value: never) => {
+        if (target[p] === value) return true;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         // eslint-disable-next-line no-param-reassign
         target[p] = value;
-        this.subject.next();
+        if (p.toString() !== 'reacting' && this.reacting) this.subject.next();
         return true;
       },
     });
@@ -32,4 +33,5 @@ export class ReactiveClass {
   }
 
   private subject = new Subject<void>();
+  protected reacting = true;
 }
