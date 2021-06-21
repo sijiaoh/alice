@@ -923,6 +923,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@types/uuid@npm:8.3.0"
+  checksum: 620985aed8fdb4aed153daca5235f4303457a67a4d181efac0021712eabd9edd7e88895f79730c0e651effde7633b1b61e49a81519ac8d4e75019d2ac9b6412f
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 20.2.0
   resolution: "@types/yargs-parser@npm:20.2.0"
@@ -2027,6 +2034,8 @@ __metadata:
   resolution: "editor-core@workspace:packages/editor-core"
   dependencies:
     "@types/jest": ^26.0.23
+    "@types/uuid": ^8.3.0
+    autobind-decorator: ^2.4.0
     default-ts-configs: "workspace:packages/default-ts-configs"
     dotenv-generator: "workspace:packages/dotenv-generator"
     eslint: ^7.28.0
@@ -2036,6 +2045,7 @@ __metadata:
     prettier: ^2.3.1
     reactive-class: "workspace:packages/reactive-class"
     typescript: ^4.3.2
+    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
@@ -5929,6 +5939,15 @@ typescript@^4.3.2:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 73c2b1cf0210ccac300645384d8443cabbd93194117b2dc1b3bae8d8279ad39aedac857e020c4ea505e96a1045059c7359db3df6a9df0be6b8584166c9d61dc9
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: aed2bcef341f95635f308fea8831fb9038b18c485fe7e71feb89d2e05602dfecad0cb6f2246fae096d4da425cca6e8a71056f28abd97ad98cf770a2018853248
   languageName: node
   linkType: hard
 

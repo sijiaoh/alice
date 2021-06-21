@@ -6,7 +6,9 @@
     "declarationMap": true,
     "outDir": "build",
     "experimentalDecorators": true,
-    "jsx": "react"
+    "jsx": "react",
+    "module": "CommonJS",
+    "target": "ESNext"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
