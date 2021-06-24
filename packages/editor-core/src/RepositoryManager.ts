@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 import type { EditorCore } from './EditorCore';
-import { Repository } from './Repository';
+import type { Repository } from './Repository';
 
 export class RepositoryManager {
   readonly editorCore: EditorCore;
@@ -9,7 +9,7 @@ export class RepositoryManager {
     this.editorCore = editorCore;
   }
 
-  createNewRepository(name: string) {
+  async createNewRepository(name: string) {
     const id = v4();
     const repository = new Repository(this, id);
     this.repositories[id] = repository;

@@ -1,25 +1,15 @@
 import { EditorCore } from './EditorCore';
-import { FileData } from './File';
-
-class Store {
-  getValue(key: string) {
-    return this.memory[key];
-  }
-  setValue(key: string, value: string) {
-    this.memory[key] = value;
-  }
-  removeValue(key: string) {
-    delete this.memory[key];
-  }
-  memory: { [key: string]: string | undefined } = {};
-}
+import { MemoryStore } from './MemoryStore';
 
 describe('File', () => {
-  const prepare = () => {
-    const store = new Store();
+  const prepare = async () => {
+    const store = new MemoryStore();
     const editorCore = new EditorCore(store);
-    const repository = editorCore.repositoryManager.createNewRepository('name');
-    const id = repository.fileTree.createNewFile('file/path', '');
+    const repository = await editorCore.repositoryManager.createNewRepository(
+      'name'
+    );
+    const fileTree = await repository.fileTreeManager.findOrLoadFileTree(null);
+    const id = fileTree.createNewFile('file/path', '');
     const file = repository.fileManager.findOrLoadFile(id, '');
     return { store, editorCore, repository, file };
   };
