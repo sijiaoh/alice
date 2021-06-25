@@ -1430,23 +1430,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"backends@workspace:packages/mysql":
-  version: 0.0.0-use.local
-  resolution: "backends@workspace:packages/mysql"
-  dependencies:
-    "@types/jest": ^26.0.23
-    commander: ^7.2.0
-    default-ts-configs: "workspace:packages/default-ts-configs"
-    dotenv-generator: "workspace:packages/dotenv-generator"
-    eslint: ^7.28.0
-    execa: ^5.1.1
-    jest: ^27.0.4
-    npm-run-all: ^4.1.5
-    prettier: ^2.3.1
-    typescript: ^4.3.2
-  languageName: unknown
-  linkType: soft
-
 "balanced-match@npm:^1.0.0":
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
@@ -4337,6 +4320,23 @@ fsevents@^2.3.2:
   checksum: 6e721e648a544154d5de4c114b32f573d8027ca8ec505cf6c1105e505986d6ac46934a1256735aa0eece8eb2f5b2a1230503b2dddd3b100f9f016fd8a4f15f33
   languageName: node
   linkType: hard
+
+"mysql@workspace:packages/mysql":
+  version: 0.0.0-use.local
+  resolution: "mysql@workspace:packages/mysql"
+  dependencies:
+    "@types/jest": ^26.0.23
+    commander: ^7.2.0
+    default-ts-configs: "workspace:packages/default-ts-configs"
+    dotenv-generator: "workspace:packages/dotenv-generator"
+    eslint: ^7.28.0
+    execa: ^5.1.1
+    jest: ^27.0.4
+    npm-run-all: ^4.1.5
+    prettier: ^2.3.1
+    typescript: ^4.3.2
+  languageName: unknown
+  linkType: soft
 
 "natural-compare@npm:^1.4.0":
   version: 1.4.0

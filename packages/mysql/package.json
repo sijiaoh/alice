@@ -10,8 +10,8 @@
     "lint": "run-p lintJson lintSrc",
     "fix": "prettier --loglevel warn --write .",
     "lix": "run-p lint fix",
-    "start": "yarn codegen && yarn build && node scripts/index.js",
-    "build": "run-s codegen tsc",
+    "start": "yarn build && node scripts/index.js",
+    "build": "yarn codegen && tsc",
     "prepublish": "yarn build",
     "test": "yarn jest",
     "codegen": "dotenv-generator generate"
