@@ -8,7 +8,8 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "module": "CommonJS",
-    "target": "ES5"
+    "target": "ES5",
+    "baseUrl": "."
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
