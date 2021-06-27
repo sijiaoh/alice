@@ -29,19 +29,27 @@ const execDockerCompose = async (args: string[], options?: execa.Options) => {
   });
 };
 
-const execMysql = async (command: string, options?: execa.Options) => {
+const execMysql = async (
+  command: string,
+  options?: execa.Options & { userName?: string; userPassword?: string }
+) => {
+  const newOptions = { ...options };
+  const userName = newOptions?.userName || 'root';
+  const userPassword = newOptions?.userPassword || env.MYSQL_ROOT_PASSWORD;
+  delete newOptions.userName;
+  delete newOptions.userPassword;
   await execDockerCompose(
     [
       'exec',
       '-T',
       'mysql',
       'mysql',
-      '--user=root',
-      `--password=${env.MYSQL_ROOT_PASSWORD}`,
+      `--user=${userName}`,
+      `--password=${userPassword}`,
       '-e',
       command,
     ],
-    options
+    newOptions
   );
 };
 
@@ -106,8 +114,17 @@ program
     }
   );
 
-program.command('execMysql <command>').action(async (command: string) => {
-  await execMysql(command, { stdio: 'inherit' });
-});
+program
+  .command('execMysql <command>')
+  .option('-u --userName <userName>')
+  .option('-p --userPassword <userName>')
+  .action(
+    async (
+      command: string,
+      options: { userName?: string; userPassword?: string }
+    ) => {
+      await execMysql(command, { stdio: 'inherit', ...options });
+    }
+  );
 
 program.parse(process.argv);
