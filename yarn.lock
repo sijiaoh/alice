@@ -4321,9 +4321,9 @@ fsevents@^2.3.2:
   languageName: node
   linkType: hard
 
-"mysql@workspace:packages/mysql":
+"mysql-docker@workspace:packages/mysql-docker":
   version: 0.0.0-use.local
-  resolution: "mysql@workspace:packages/mysql"
+  resolution: "mysql-docker@workspace:packages/mysql-docker"
   dependencies:
     "@types/jest": ^26.0.23
     commander: ^7.2.0

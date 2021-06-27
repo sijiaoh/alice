@@ -8,7 +8,7 @@ const program = new Command();
 const projectCwd = process.env.PROJECT_CWD;
 if (!projectCwd) throw new Error('process.env.PROJECT_CWD cant not be falsy.');
 
-const thisPath = path.join(projectCwd, 'packages', 'mysql');
+const thisPath = path.join(projectCwd, 'packages', 'mysql-docker');
 
 const exec = async (
   command: string,
