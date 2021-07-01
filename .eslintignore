@@ -1,4 +1,10 @@
 /.yarn
-/packages
 /.pnp.*
 /eslint
+
+node_modules
+build
+tmp
+generated
+__tests__
+__snapshots__
