@@ -9,6 +9,7 @@
   ],
   "main": "build/index.js",
   "scripts": {
+    "bootstrap": "node scripts/bootstrap.js",
     "lint": "eslint --ext .json,.js,.jsx,.ts,.tsx --fix .",
     "fix": "prettier --loglevel warn --write .",
     "lix": "run-s lint fix",

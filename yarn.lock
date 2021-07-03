@@ -4889,6 +4889,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"miku-client@workspace:packages/miku-client":
+  version: 0.0.0-use.local
+  resolution: "miku-client@workspace:packages/miku-client"
+  languageName: unknown
+  linkType: soft
+
 "mime-db@npm:1.48.0":
   version: 1.48.0
   resolution: "mime-db@npm:1.48.0"

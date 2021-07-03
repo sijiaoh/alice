@@ -10,6 +10,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['scripts/**/*'],
+      rules: {
+        'no-console': 'off',
+      },
+    },
+    {
       files: ['**/*.ts', '**/*.tsx'],
       extends: [
         'airbnb-typescript',
