@@ -4,7 +4,7 @@ import { Observer } from './Observer';
 
 @autobind
 export class Subject {
-  observers: { [id: string]: Observer } = {};
+  observers: { [id: string]: Observer | undefined } = {};
 
   subscribe(observer: Observer) {
     const id = v4();
@@ -15,16 +15,16 @@ export class Subject {
   }
 
   update() {
-    Object.values(this.observers).forEach((observer: Observer) => {
+    Object.values(this.observers).forEach((observer) => {
       if (typeof observer === 'function') observer();
-      else observer.onUpdate?.();
+      else observer?.onUpdate?.();
     });
   }
 
   destroy() {
-    Object.values(this.observers).forEach((observer: Observer) => {
+    Object.values(this.observers).forEach((observer) => {
       if (typeof observer === 'function') observer();
-      else observer.onDestroy?.();
+      else observer?.onDestroy?.();
     });
   }
 }
