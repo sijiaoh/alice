@@ -7,9 +7,8 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "codegen": "index-generator generate",
     "build": "tsc",
-    "prepublish": "run-s codegen build"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "typescript": "^4.3.5"
