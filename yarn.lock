@@ -6296,6 +6296,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"sleep@workspace:packages/sleep":
+  version: 0.0.0-use.local
+  resolution: "sleep@workspace:packages/sleep"
+  dependencies:
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
+
 "slice-ansi@npm:^4.0.0":
   version: 4.0.0
   resolution: "slice-ansi@npm:4.0.0"
