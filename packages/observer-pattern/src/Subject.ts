@@ -1,12 +1,6 @@
 import autobind from 'autobind-decorator';
 import { v4 } from 'uuid';
-
-export type Observer =
-  | (() => void)
-  | {
-      onUpdate?: () => void;
-      onDestroy?: () => void;
-    };
+import { Observer } from './Observer';
 
 @autobind
 export class Subject {

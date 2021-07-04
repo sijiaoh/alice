@@ -1,5 +1,5 @@
 {
-  "name": "reactive-class",
+  "name": "observer-pattern",
   "private": true,
   "engines": {
     "node": "14.x"
@@ -7,21 +7,16 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "start": "yarn build && node scripts/index.js",
     "codegen": "index-generator generate",
-    "build": "yarn codegen && tsc",
-    "prepublish": "yarn build"
+    "build": "tsc",
+    "prepublish": "run-s codegen build"
   },
   "dependencies": {
-    "@types/react": "^17.0.11",
-    "@types/react-test-renderer": "^17.0.1",
     "@types/uuid": "^8.3.1",
     "autobind-decorator": "^2.4.0",
     "index-generator": "workspace:packages/index-generator",
     "npm-run-all": "^4.1.5",
-    "observer-pattern": "workspace:packages/observer-pattern",
-    "react": "^17.0.2",
-    "typescript": "^4.3.2",
+    "typescript": "^4.3.5",
     "uuid": "^8.3.2"
   }
 }

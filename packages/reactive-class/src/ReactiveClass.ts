@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import { Observer, Subject } from './Subject';
+import { Observer, Subject } from 'observer-pattern';
 
 @autobind
 export class ReactiveClass {
