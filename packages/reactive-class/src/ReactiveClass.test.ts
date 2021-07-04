@@ -32,7 +32,7 @@ describe('ReactiveClass', () => {
 
       let count2 = 0;
       some.subscribe({
-        next: () => {
+        onUpdate: () => {
           count2 += 1;
         },
       });
@@ -55,13 +55,13 @@ describe('ReactiveClass', () => {
 
       const some = new SomeClass();
       some.subscribe({
-        complete: () => {
+        onDestroy: () => {
           called = true;
         },
       });
       some.destroy();
 
-      expect(called).toBe(true);
+      expect(called).toBeTruthy();
     });
   });
 
@@ -83,7 +83,7 @@ describe('ReactiveClass', () => {
       some.num += 1;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (some as any).reacting = true;
-      expect(called).toBe(false);
+      expect(called).toBeFalsy();
     });
   });
 });

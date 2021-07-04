@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
-import { Observer, Subject } from 'rxjs';
+import { Observer, Subject } from './Subject';
 
 @autobind
 export class ReactiveClass {
+  readonly subject = new Subject();
+
   constructor() {
     const self = new Proxy(this, {
       set: (target, p: keyof ReactiveClass, value: never) => {
@@ -11,7 +13,7 @@ export class ReactiveClass {
         // @ts-ignore
         // eslint-disable-next-line no-param-reassign
         target[p] = value;
-        if (p.toString() !== 'reacting' && this.reacting) this.subject.next();
+        if (p.toString() !== 'reacting' && this.reacting) this.subject.update();
         return true;
       },
     });
@@ -19,19 +21,13 @@ export class ReactiveClass {
   }
 
   destroy() {
-    this.subject.complete();
+    this.subject.destroy();
   }
 
-  subscribe(arg: Partial<Observer<void>> | (() => void)) {
+  subscribe(arg: Observer | (() => void)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const subscription = this.subject.subscribe(arg as any);
-    return () => subscription.unsubscribe();
+    return this.subject.subscribe(arg as any);
   }
 
-  get observable() {
-    return this.subject.asObservable();
-  }
-
-  private subject = new Subject<void>();
   protected reacting = true;
 }

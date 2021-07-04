@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { create, act, ReactTestRenderer } from 'react-test-renderer';
-import { Subject } from 'rxjs';
 import { ReactiveClass } from './ReactiveClass';
 import { useSelector } from './useSelector';
 
@@ -32,12 +31,9 @@ describe('useSelector', () => {
     void act(() => {
       component = create(<Component s1={some1} s2={some2} s3={some3} />);
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(((some1 as any).subject as Subject<Some1>).observers.length).toBe(1);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(((some2 as any).subject as Subject<Some2>).observers.length).toBe(1);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(((some3 as any).subject as Subject<Some3>).observers.length).toBe(1);
+    expect(Object.values(some1.subject.observers).length).toBe(1);
+    expect(Object.values(some2.subject.observers).length).toBe(1);
+    expect(Object.values(some3.subject.observers).length).toBe(1);
     expect(component.toJSON()).toMatchSnapshot();
 
     void act(() => {
@@ -63,12 +59,9 @@ describe('useSelector', () => {
     void act(() => {
       component.unmount();
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(((some1 as any).subject as Subject<Some1>).observers.length).toBe(0);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(((some2 as any).subject as Subject<Some2>).observers.length).toBe(0);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect(((some3 as any).subject as Subject<Some3>).observers.length).toBe(0);
+    expect(Object.values(some1.subject.observers).length).toBe(0);
+    expect(Object.values(some2.subject.observers).length).toBe(0);
+    expect(Object.values(some3.subject.observers).length).toBe(0);
     expect(component.toJSON()).toMatchSnapshot();
   });
 });
