@@ -53,6 +53,7 @@ module.exports = {
         'react-hooks/exhaustive-deps': [
           'warn',
           {
+            // reactive-class's hook.'
             additionalHooks: '(useSelector)',
           },
         ],
