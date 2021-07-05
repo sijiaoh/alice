@@ -14,9 +14,15 @@ class SomeClass extends ReactiveClass {
   obj = { key: 0 };
 }
 
+afterEach(() => {
+  jest.useRealTimers();
+});
+
 describe('ReactiveClass', () => {
   describe('subscribe', () => {
-    it('call callback function when class properties changed', () => {
+    it('call callback function when class properties changed', async () => {
+      jest.useFakeTimers();
+
       const some = new SomeClass();
 
       let count = 0;
@@ -27,6 +33,9 @@ describe('ReactiveClass', () => {
       some.num += 1;
       some.str = '1';
       some.obj = { key: 1 };
+
+      jest.runAllTimers();
+      await Promise.resolve();
 
       unsubscribe();
 
@@ -41,16 +50,19 @@ describe('ReactiveClass', () => {
       some.str = '2';
       some.obj = { key: 1 };
 
+      jest.runAllTimers();
+      await Promise.resolve();
+
       expect(some.num).toBe(2);
       expect(some.str).toBe('2');
       expect(some.obj.key).toBe(1);
-      expect(count).toBe(3);
-      expect(count2).toBe(3);
+      expect(count).toBe(1);
+      expect(count2).toBe(1);
     });
   });
 
   describe('destroy', () => {
-    it('call subject.complete', () => {
+    it('call subject.complete', async () => {
       let called = false;
 
       const some = new SomeClass();
@@ -59,14 +71,16 @@ describe('ReactiveClass', () => {
           called = true;
         },
       });
-      some.destroy();
+      await some.destroy();
 
       expect(called).toBeTruthy();
     });
   });
 
   describe('reacting', () => {
-    it('can control reactive feature', () => {
+    it('can control reactive feature', async () => {
+      jest.useFakeTimers();
+
       let called = false;
 
       const some = new SomeClass();
@@ -75,6 +89,9 @@ describe('ReactiveClass', () => {
       });
 
       some.num += 1;
+
+      jest.runAllTimers();
+      await Promise.resolve();
       expect(called).toBe(true);
 
       called = false;
@@ -83,6 +100,9 @@ describe('ReactiveClass', () => {
       some.num += 1;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (some as any).reacting = true;
+
+      jest.runAllTimers();
+      await Promise.resolve();
       expect(called).toBeFalsy();
     });
   });

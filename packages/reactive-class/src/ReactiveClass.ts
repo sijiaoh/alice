@@ -1,9 +1,9 @@
 import autobind from 'autobind-decorator';
-import { Observer, Subject } from 'observer-pattern';
+import { AsyncObserver, AsyncSubject } from 'observer-pattern';
 
 @autobind
 export class ReactiveClass {
-  readonly subject = new Subject();
+  readonly subject = new AsyncSubject();
 
   constructor() {
     const self = new Proxy(this, {
@@ -20,13 +20,12 @@ export class ReactiveClass {
     return self;
   }
 
-  destroy() {
-    this.subject.destroy();
+  subscribe(arg: AsyncObserver) {
+    return this.subject.subscribe(arg);
   }
 
-  subscribe(arg: Observer | (() => void)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.subject.subscribe(arg as any);
+  async destroy() {
+    await this.subject.destroy();
   }
 
   protected reacting = true;
