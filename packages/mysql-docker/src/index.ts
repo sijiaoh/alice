@@ -1,7 +1,11 @@
 import path from 'path';
 import { Command } from 'commander';
 import execa from 'execa';
-import { env } from './generated/env';
+import { TypedConfig } from 'typed-config';
+
+const config = new TypedConfig('production', {
+  MYSQL_ROOT_PASSWORD: 'alice-mysql-root-password',
+});
 
 const program = new Command();
 
@@ -24,7 +28,10 @@ const exec = async (
 const execDockerCompose = async (args: string[], options?: execa.Options) => {
   await exec('docker-compose', args, {
     cwd: thisPath,
-    env: { ...process.env, MYSQL_ROOT_PASSWORD: env.MYSQL_ROOT_PASSWORD },
+    env: {
+      ...process.env,
+      MYSQL_ROOT_PASSWORD: config.data.MYSQL_ROOT_PASSWORD,
+    },
     ...options,
   });
 };
@@ -35,7 +42,8 @@ const execMysql = async (
 ) => {
   const newOptions = { ...options };
   const userName = newOptions?.userName || 'root';
-  const userPassword = newOptions?.userPassword || env.MYSQL_ROOT_PASSWORD;
+  const userPassword =
+    newOptions?.userPassword || config.data.MYSQL_ROOT_PASSWORD;
   delete newOptions.userName;
   delete newOptions.userPassword;
   await execDockerCompose(
