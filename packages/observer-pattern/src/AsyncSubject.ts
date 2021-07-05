@@ -5,7 +5,7 @@ import { AsyncObserver } from './AsyncObserver';
 
 @autobind
 export class AsyncSubject {
-  observerDatas: {
+  readonly observerDatas: {
     [id: string]:
       | { observer: AsyncObserver; calling: boolean; reserved: boolean }
       | undefined;
