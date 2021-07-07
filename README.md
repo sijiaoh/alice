@@ -1,5 +1,13 @@
 # alice
 
+## Startup
+
+```bash
+yarn
+cp envrc.sample .envrc
+yarn bootstrap
+```
+
 ## setTimeout ＋ Promise のテスト
 
 reactive-class のテストは runAllTimers だけだとうまく動かない。
