@@ -11,6 +11,9 @@
   "scripts": {
     "bootstrap": "yarn && node scripts/bootstrap.js",
     "foreach": "node scripts/foreach.js",
+    "lnTsconfig": "yarn foreach ln -sf ../../tsconfig.json .",
+    "lnEslintTsconfig": "yarn foreach ln -sf ../../tsconfig.json .",
+    "ln": "run-p lnTsconfig lnEslintTsconfig",
     "lint": "eslint --ext .json,.js,.jsx,.ts,.tsx --fix .",
     "fix": "prettier --loglevel warn --write .",
     "lix": "run-s lint fix",
