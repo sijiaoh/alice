@@ -1,3 +1,14 @@
+const tsExtends = [
+  'airbnb-typescript',
+  'plugin:react-hooks/recommended',
+  'plugin:import/recommended',
+  'plugin:import/typescript',
+  'plugin:@typescript-eslint/recommended',
+  'plugin:prettier/recommended',
+];
+
+const nextjsProjects = ['caroline'];
+
 module.exports = {
   root: true,
   extends: [
@@ -17,14 +28,7 @@ module.exports = {
     },
     {
       files: ['**/*.ts', '**/*.tsx'],
-      extends: [
-        'airbnb-typescript',
-        'plugin:react-hooks/recommended',
-        'plugin:import/recommended',
-        'plugin:import/typescript',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-      ],
+      extends: tsExtends,
       settings: {
         // https://github.com/benmosher/eslint-plugin-import/issues/1485#issuecomment-535351922
         'import/resolver': { typescript: {} },
@@ -57,6 +61,26 @@ module.exports = {
             additionalHooks: '(useSelector)',
           },
         ],
+      },
+    },
+    ...nextjsProjects.map((project) => ({
+      files: [`packages/${project}/**/*.ts`, `packages/${project}/**/*.tsx`],
+      extends: ['next', 'next/core-web-vitals', ...tsExtends],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'react/react-in-jsx-scope': 'off',
+        '@next/next/no-html-link-for-pages': [
+          'error',
+          `packages/${project}/pages`,
+        ],
+      },
+    })),
+    {
+      files: nextjsProjects.map(
+        (project) => `packages/${project}/pages/_app.tsx`
+      ),
+      rules: {
+        'react/jsx-props-no-spreading': 'off',
       },
     },
   ],

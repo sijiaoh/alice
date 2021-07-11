@@ -1409,6 +1409,7 @@ __metadata:
     eslint: ^7.28.0
     eslint-config-airbnb-base: ^14.2.1
     eslint-config-airbnb-typescript: ^12.3.1
+    eslint-config-next: ^11.0.1
     eslint-config-prettier: ^8.3.0
     eslint-import-resolver-typescript: ^2.4.0
     eslint-plugin-import: ^2.23.4
@@ -2062,7 +2063,6 @@ __metadata:
   resolution: "caroline@workspace:packages/caroline"
   dependencies:
     eslint: 7.30.0
-    eslint-config-next: 11.0.1
     next: 11.0.1
     react: 17.0.2
     react-dom: 17.0.2
@@ -2898,7 +2898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:11.0.1":
+"eslint-config-next@npm:^11.0.1":
   version: 11.0.1
   resolution: "eslint-config-next@npm:11.0.1"
   dependencies:
