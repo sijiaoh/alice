@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "codegen": "index-generator generate",
+    "generateIndex": "index-generator generate",
+    "generateGraphqlSchema": "NODE_PATH=${INIT_CWD} ts-node scripts/generate-graphql-schema.ts",
+    "codegen": "run-p generateIndex generateGraphqlSchema",
     "dev": "yarn codegen && next dev",
     "build": "yarn codegen && next build",
     "start": "next start"
@@ -15,9 +17,11 @@
     "graphql": "^15.5.1",
     "index-generator": "workspace:packages/index-generator",
     "next": "11.0.1",
+    "npm-run-all": "^4.1.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.1.0",
     "type-graphql": "^1.1.1",
     "uuid": "^8.3.2"
   },
