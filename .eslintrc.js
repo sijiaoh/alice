@@ -96,5 +96,11 @@ module.exports = {
         'import/no-default-export': 'off',
       },
     },
+    {
+      files: ['**/graphql/resolvers/**/*.ts'],
+      rules: {
+        'class-methods-use-this': 'off',
+      },
+    },
   ],
 };
