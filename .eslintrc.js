@@ -31,7 +31,11 @@ module.exports = {
       extends: tsExtends,
       settings: {
         // https://github.com/benmosher/eslint-plugin-import/issues/1485#issuecomment-535351922
-        'import/resolver': { typescript: {} },
+        'import/resolver': {
+          typescript: {
+            project: 'packages/*/tsconfig.eslint.json',
+          },
+        },
       },
       parserOptions: {
         project: 'tsconfig.eslint.json',
