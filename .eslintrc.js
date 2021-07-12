@@ -71,6 +71,7 @@ module.exports = {
         'import/no-default-export': 'error',
         'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/lines-between-class-members': 'off',
         '@next/next/no-html-link-for-pages': [
           'error',
           `packages/${project}/pages`,
