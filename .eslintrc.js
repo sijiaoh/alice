@@ -87,9 +87,10 @@ module.exports = {
       },
     },
     {
-      files: nextjsProjects.map(
-        (project) => `packages/${project}/pages/**/*.tsx`
-      ),
+      files: nextjsProjects.flatMap((project) => [
+        `packages/${project}/pages/**/*.ts`,
+        `packages/${project}/pages/**/*.tsx`,
+      ]),
       rules: {
         'import/prefer-default-export': 'error',
         'import/no-default-export': 'off',
