@@ -67,8 +67,10 @@ module.exports = {
       files: [`packages/${project}/**/*.ts`, `packages/${project}/**/*.tsx`],
       extends: ['next', 'next/core-web-vitals', ...tsExtends],
       rules: {
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'import/prefer-default-export': 'off',
+        'import/no-default-export': 'error',
         'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@next/next/no-html-link-for-pages': [
           'error',
           `packages/${project}/pages`,
@@ -81,6 +83,15 @@ module.exports = {
       ),
       rules: {
         'react/jsx-props-no-spreading': 'off',
+      },
+    },
+    {
+      files: nextjsProjects.map(
+        (project) => `packages/${project}/pages/**/*.tsx`
+      ),
+      rules: {
+        'import/prefer-default-export': 'error',
+        'import/no-default-export': 'off',
       },
     },
   ],
