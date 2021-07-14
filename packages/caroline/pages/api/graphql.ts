@@ -1,9 +1,6 @@
 import 'reflect-metadata';
 
-import { ApolloServer } from 'apollo-server-micro';
-import { buildSchema } from '../../src/graphql/buildSchema';
-
-const apolloServer = new ApolloServer({ schema: buildSchema() });
+import { apolloServer } from 'src/graphql/apolloServer';
 
 export const config = {
   api: {
