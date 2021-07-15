@@ -5,7 +5,8 @@
   "scripts": {
     "generateIndex": "index-generator generate",
     "generateGraphqlSchema": "NODE_PATH=${INIT_CWD} ts-node scripts/generate-graphql-schema.ts",
-    "codegen": "run-p generateIndex generateGraphqlSchema",
+    "graphqlCodegen": "graphql-codegen --config before-codegen.yml && graphql-codegen --config codegen.yml",
+    "codegen": "run-s generateIndex generateGraphqlSchema graphqlCodegen",
     "dev": "yarn codegen && next dev",
     "build": "yarn codegen && next build",
     "start": "next start",
@@ -14,6 +15,10 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.14.5",
+    "@graphql-codegen/cli": "^1.21.7",
+    "@graphql-codegen/typescript": "^1.23.0",
+    "@graphql-codegen/typescript-graphql-request": "^3.2.5",
+    "@graphql-codegen/typescript-operations": "^1.18.4",
     "apollo-server-micro": "^2.25.2",
     "autobind-decorator": "^2.4.0",
     "graphql": "^15.5.1",
