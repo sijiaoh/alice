@@ -6,7 +6,7 @@ export default function Home() {
       <Head>
         <title>Caroline</title>
       </Head>
-      <div>Hello</div>
+      <div css={{ color: 'red', ':hover': { color: 'green' } }}>Hello</div>
     </>
   );
 }
