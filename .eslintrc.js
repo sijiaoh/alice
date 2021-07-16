@@ -7,6 +7,35 @@ const tsExtends = [
   'plugin:prettier/recommended',
 ];
 
+const tsRules = {
+  'no-void': 'off',
+
+  'import/prefer-default-export': 'off',
+  'import/no-default-export': 'error',
+  'import/order': ['error', { alphabetize: { order: 'asc' } }],
+
+  '@typescript-eslint/lines-between-class-members': 'off',
+  '@typescript-eslint/no-non-null-assertion': 'off',
+  '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+  '@typescript-eslint/await-thenable': 'error',
+  'require-await': 'off',
+  '@typescript-eslint/require-await': 'error',
+  '@typescript-eslint/no-misused-promises': 'error',
+  '@typescript-eslint/no-floating-promises': 'error',
+  '@typescript-eslint/promise-function-async': 'error',
+
+  'react/require-default-props': 'off',
+
+  'react-hooks/exhaustive-deps': [
+    'warn',
+    {
+      // reactive-class's hook.'
+      additionalHooks: '(useSelector)',
+    },
+  ],
+};
+
 const nextjsProjects = ['caroline'];
 
 module.exports = {
@@ -40,37 +69,13 @@ module.exports = {
       parserOptions: {
         project: 'tsconfig.eslint.json',
       },
-      rules: {
-        'no-void': 'off',
-
-        'import/prefer-default-export': 'off',
-        'import/no-default-export': 'error',
-        'import/order': ['error', { alphabetize: { order: 'asc' } }],
-
-        '@typescript-eslint/lines-between-class-members': 'off',
-        '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-
-        '@typescript-eslint/await-thenable': 'error',
-        'require-await': 'off',
-        '@typescript-eslint/require-await': 'error',
-        '@typescript-eslint/no-misused-promises': 'error',
-        '@typescript-eslint/no-floating-promises': 'error',
-        '@typescript-eslint/promise-function-async': 'error',
-
-        'react-hooks/exhaustive-deps': [
-          'warn',
-          {
-            // reactive-class's hook.'
-            additionalHooks: '(useSelector)',
-          },
-        ],
-      },
+      rules: tsRules,
     },
     ...nextjsProjects.map((project) => ({
       files: [`packages/${project}/**/*.ts`, `packages/${project}/**/*.tsx`],
       extends: ['next', 'next/core-web-vitals', ...tsExtends],
       rules: {
+        ...tsRules,
         'import/prefer-default-export': 'off',
         'import/no-default-export': 'error',
         'react/react-in-jsx-scope': 'off',
