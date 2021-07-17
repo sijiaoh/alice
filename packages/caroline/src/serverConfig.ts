@@ -1,5 +1,8 @@
 import { TypedConfig, Env, envs } from 'typed-config';
 
+if (typeof window !== 'undefined')
+  throw new Error('Do not import serverConfig from browser.');
+
 const nextPublicEnv = process.env.NEXT_PUBLIC_ENV || 'development';
 
 if (!envs.includes(nextPublicEnv as Env))
@@ -12,8 +15,11 @@ if (production && env !== 'staging' && env !== 'production')
     'NODE_ENV is production but NEXT_PUBLIC_ENV is not staging or production.'
   );
 
-export const config = new TypedConfig(env, {
+export const serverConfig = new TypedConfig(env, {
+  MYSQL_HOST: 'localhost',
+  MYSQL_PORT: '3306',
   // Sync with package.json prepareDatabase command.
+  MYSQL_DATABASE: 'caroline',
   MYSQL_USERNAME: 'caroline',
   MYSQL_PASSWORD: 'caroline-password',
 });

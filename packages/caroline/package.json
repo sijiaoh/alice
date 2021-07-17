@@ -14,6 +14,7 @@
     "prepublish": "run-s codegen prepareDatabase"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-proposal-decorators": "^7.14.5",
     "@emotion/babel-plugin": "^11.3.0",
     "@emotion/react": "^11.4.0",
@@ -23,9 +24,11 @@
     "@graphql-codegen/typescript-operations": "^1.18.4",
     "apollo-server-micro": "^2.25.2",
     "autobind-decorator": "^2.4.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "graphql": "^15.5.1",
     "index-generator": "workspace:packages/index-generator",
     "mysql-docker": "workspace:packages/mysql-docker",
+    "mysql2": "^2.2.5",
     "next": "11.0.1",
     "npm-run-all": "^4.1.5",
     "react": "17.0.2",
@@ -35,6 +38,7 @@
     "ts-node": "^10.1.0",
     "type-graphql": "^1.1.1",
     "typed-config": "workspace:packages/typed-config",
+    "typeorm": "^0.2.34",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

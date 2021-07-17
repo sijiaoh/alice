@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 
 import { apolloServer } from 'src/graphql/apolloServer';
+import { prepareConnection } from 'src/prepareConnection';
 
 export const config = {
   api: {
@@ -8,4 +9,7 @@ export const config = {
   },
 };
 
-export default apolloServer.createHandler({ path: '/api/graphql' });
+export default async (req: Request, res: Response) => {
+  await prepareConnection();
+  await apolloServer.createHandler({ path: '/api/graphql' })(req, res);
+};
