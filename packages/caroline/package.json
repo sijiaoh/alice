@@ -34,6 +34,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.1.0",
     "type-graphql": "^1.1.1",
+    "typed-config": "workspace:packages/typed-config",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

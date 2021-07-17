@@ -1,6 +1,8 @@
 import autobind from 'autobind-decorator';
 
-type Env = 'test' | 'development' | 'staging' | 'production';
+export const envs = ['test', 'development', 'staging', 'production'] as const;
+
+export type Env = typeof envs[number];
 
 @autobind
 export class TypedConfig<T extends { [key: string]: string | undefined }> {
@@ -14,7 +16,7 @@ export class TypedConfig<T extends { [key: string]: string | undefined }> {
     Object.keys(config).forEach((key) => {
       const envValue = process.env[key];
       const value = envValue ?? config[key];
-      if (value == null) throw new Error(`${envValue} is falsy.`);
+      if (value == null) throw new Error(`${envValue} is not set.`);
 
       data[key] = value;
     });
