@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useIsBrowser = () => {
-  const [isBrowser, setIsBrowser] = useState(typeof window === 'undefined');
+  const [isBrowser, setIsBrowser] = useState(false);
   useEffect(() => {
     setIsBrowser(true);
   }, []);
