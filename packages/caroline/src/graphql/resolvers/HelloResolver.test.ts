@@ -1,6 +1,6 @@
+import { HelloDocument } from '../../generated/graphql';
 import { apolloServer } from '../apolloServer';
 import { HelloResolver } from './HelloResolver';
-import { HelloDocument } from '../../generated/graphql';
 
 describe(HelloResolver.name, () => {
   describe(HelloResolver.prototype.hello.name, () => {
