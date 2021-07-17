@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Props } from 'src/Props';
+import { Props } from 'react-utils';
 
 const Text = ({ className, children }: Props) => {
   return <div className={className}>{children}</div>;
