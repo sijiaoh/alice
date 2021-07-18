@@ -1,15 +1,70 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Profile } from 'passport';
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  Index,
+  Generated,
+  getConnection,
+} from 'typeorm';
 
 // eslint-disable-next-line import/no-cycle
 import { Repository } from './Repository';
+// eslint-disable-next-line import/no-cycle
+import { SocialProfile } from './SocialProfile';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
+  static async createWithSocialProfile(profile: Profile) {
+    return getConnection().transaction(async (manager) => {
+      const user = await manager.save(manager.create(User));
+      await manager.save(
+        manager.create(SocialProfile, {
+          userId: user.id,
+          provider: profile.provider,
+          token: profile.id,
+          email: profile.emails![0].value,
+        })
+      );
+      return user;
+    });
+  }
+
+  // TypeORMは関連削除が怪しい。
+  static async removeWithSocialProfile(id: number) {
+    return getConnection().transaction(async (manager) => {
+      const user = await manager.findOne(User, id);
+      if (!user) return;
+      await manager.remove(SocialProfile, await user.socialProfiles);
+      await manager.remove(User, user);
+    });
+  }
+
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  readonly id!: string;
+
   @Column()
+  @Generated('uuid')
+  @Index({ unique: true })
+  readonly accessToken!: string;
+  @Column({ default: 'defaultPenName' })
   penName!: string;
 
-  @OneToMany(() => Repository, (repository) => repository.user)
-  repositories!: Repository[];
+  @CreateDateColumn()
+  readonly createdAt!: Date;
+  @UpdateDateColumn()
+  readonly updatedAt!: Date;
+
+  @OneToMany(() => SocialProfile, async (socialProfile) => socialProfile.user, {
+    cascade: true,
+  })
+  readonly socialProfiles!: Promise<SocialProfile[]>;
+  @OneToMany(() => SocialProfile, async (socialProfile) => socialProfile.user, {
+    cascade: true,
+  })
+  readonly repositories!: Promise<Repository[]>;
 }

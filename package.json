@@ -17,7 +17,7 @@
     "lint": "eslint --ext .json,.js,.jsx,.ts,.tsx --fix .",
     "fix": "prettier --loglevel warn --write .",
     "lix": "run-s lint fix",
-    "test": "jest"
+    "test": "ENV=test NODE_ENV=test NEXT_PUBLIC_ENV=test jest"
   },
   "dependencies": {
     "@types/jest": "^26.0.23",

@@ -16,10 +16,15 @@ if (production && env !== 'staging' && env !== 'production')
   );
 
 export const serverConfig = new TypedConfig(env, {
+  URL: 'http://localhost:3000',
+
   MYSQL_HOST: 'localhost',
   MYSQL_PORT: '3306',
   // Sync with package.json prepareDatabase command.
   MYSQL_DATABASE: 'caroline',
   MYSQL_USERNAME: 'caroline',
   MYSQL_PASSWORD: 'caroline-password',
+
+  GOOGLE_CLIENT_ID: env === 'test' ? '' : undefined,
+  GOOGLE_CLIENT_SECRET: env === 'test' ? '' : undefined,
 });

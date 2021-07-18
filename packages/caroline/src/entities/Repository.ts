@@ -6,10 +6,13 @@ import { User } from './User';
 @Entity()
 export class Repository {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  readonly id!: string;
+
   @Column()
   name!: string;
 
-  @ManyToOne(() => User, (user) => user.repositories)
-  user!: User;
+  @Column()
+  readonly userId!: string;
+  @ManyToOne(() => User, async (user) => user.repositories)
+  readonly user!: Promise<User>;
 }
