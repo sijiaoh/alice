@@ -25,6 +25,6 @@ export const serverConfig = new TypedConfig(env, {
   MYSQL_USERNAME: 'caroline',
   MYSQL_PASSWORD: 'caroline-password',
 
-  GOOGLE_CLIENT_ID: env === 'test' ? '' : undefined,
-  GOOGLE_CLIENT_SECRET: env === 'test' ? '' : undefined,
+  GOOGLE_CLIENT_ID: env === 'test' ? 'dummy' : undefined,
+  GOOGLE_CLIENT_SECRET: env === 'test' ? 'dummy' : undefined,
 });

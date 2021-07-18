@@ -1,5 +1,5 @@
 import { createConnection, getConnection } from 'typeorm';
-import { User, Repository } from './entities';
+import * as entities from './entities';
 import { serverConfig } from './serverConfig';
 
 export const prepareConnection = async () => {
@@ -17,7 +17,7 @@ export const prepareConnection = async () => {
     username: serverConfig.data.MYSQL_USERNAME,
     password: serverConfig.data.MYSQL_PASSWORD,
     database: serverConfig.data.MYSQL_DATABASE,
-    entities: [User, Repository],
+    entities: Object.values(entities),
     synchronize: !serverConfig.production,
     logging: false,
   });

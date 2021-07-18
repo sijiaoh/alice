@@ -1,18 +1,10 @@
 import { Profile } from 'passport';
-import { clearDatabase } from './clearDatabase';
 import { SocialProfile } from './entities/SocialProfile';
 import { User } from './entities/User';
 import { login } from './login';
-import { prepareConnection } from './prepareConnection';
 import { Request } from './server-types';
 
-beforeAll(async () => {
-  await prepareConnection();
-});
-
-beforeEach(async () => {
-  await clearDatabase();
-});
+import './test-database';
 
 export const createProfile = (attributes: Partial<Profile> = {}): Profile => {
   return {
@@ -25,37 +17,36 @@ export const createProfile = (attributes: Partial<Profile> = {}): Profile => {
 };
 
 describe('Passport login.', () => {
-  const createUser = async () => {
-    await login({} as Request, createProfile(), () => {});
-  };
+  const createUser = async () =>
+    new Promise<User>((resolve) => {
+      void login({} as Request, createProfile(), (_, user) => {
+        resolve(user as User);
+      });
+    });
 
-  test('Create new user.', async () => {
-    await login({} as Request, createProfile(), (err, u) => {
-      const user = u as User;
+  it('Create new user.', async () => {
+    await login({} as Request, createProfile(), (err) => {
       expect(err).toBeUndefined();
-      expect(user!.id).toBe(1);
     });
     expect(await User.count()).toBe(1);
     expect(await SocialProfile.count()).toBe(1);
   });
 
-  test('Normal login.', async () => {
+  it('Normal login.', async () => {
     await createUser();
 
-    await login({} as Request, createProfile(), (err, u) => {
-      const user = u as User;
+    await login({} as Request, createProfile(), (err) => {
       expect(err).toBeUndefined();
-      expect(user!.id).toBe(1);
     });
     expect(await User.count()).toBe(1);
     expect(await SocialProfile.count()).toBe(1);
   });
 
-  test('Link other social account.', async () => {
-    await createUser();
+  it('Link other social account.', async () => {
+    const userId = await createUser().then((user) => user.id);
 
     await login(
-      { user: { id: 1 } } as Request,
+      { user: { id: userId } } as unknown as Request,
       createProfile({ provider: 'twitter' }),
       (err, user) => {
         expect(err).toBeUndefined();
@@ -64,17 +55,20 @@ describe('Passport login.', () => {
     );
     expect(await User.count()).toBe(1);
     expect(await SocialProfile.count()).toBe(2);
-    expect((await SocialProfile.findOne(2))?.userId).toBe(1);
   });
 
-  test('Login to another user with linked social profile.', async () => {
+  it('Login to another user with linked social profile.', async () => {
     await createUser();
 
     // Create another user.
-    await login({} as Request, createProfile({ id: 'profileId2' }), () => {});
+    const userId = await new Promise<string>((resolve) => {
+      void login({} as Request, createProfile({ id: 'profileId2' }), (_, u) => {
+        resolve((u as User).id);
+      });
+    });
 
     await login(
-      { user: { id: 2 } } as Request,
+      { user: { id: userId } } as unknown as Request,
       createProfile(),
       (err, user) => {
         expect(err).toBeInstanceOf(Error);
@@ -85,11 +79,11 @@ describe('Passport login.', () => {
     expect(await SocialProfile.count()).toBe(2);
   });
 
-  test('Login to user who is already linked to another social profile with this provider.', async () => {
-    await createUser();
+  it('Login to user who is already linked to another social profile with this provider.', async () => {
+    const userId = await createUser().then((user) => user.id);
 
     await login(
-      { user: { id: 1 } } as Request,
+      { user: { id: userId } } as unknown as Request,
       createProfile({ id: 'profileId2' }),
       (err, user) => {
         expect(err).toBeInstanceOf(Error);
