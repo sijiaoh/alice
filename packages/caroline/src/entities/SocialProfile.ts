@@ -8,8 +8,6 @@ import {
   ManyToOne,
   Index,
 } from 'typeorm';
-
-// eslint-disable-next-line import/no-cycle
 import { User } from './User';
 
 @Entity()

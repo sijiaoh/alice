@@ -11,10 +11,7 @@ import {
   Generated,
   getConnection,
 } from 'typeorm';
-
-// eslint-disable-next-line import/no-cycle
 import { Repository } from './Repository';
-// eslint-disable-next-line import/no-cycle
 import { SocialProfile } from './SocialProfile';
 
 @Entity()

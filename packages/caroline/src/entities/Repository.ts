@@ -1,6 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-
-// eslint-disable-next-line import/no-cycle
 import { User } from './User';
 
 @Entity()
