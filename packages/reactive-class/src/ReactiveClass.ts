@@ -13,7 +13,12 @@ export class ReactiveClass {
         // @ts-ignore
         // eslint-disable-next-line no-param-reassign
         target[p] = value;
-        if (p.toString() !== 'reacting' && this.reacting) this.subject.update();
+        if (
+          p.toString() !== 'reacting' &&
+          this.reacting &&
+          (this.reactiveProps === null || this.reactiveProps.includes(p))
+        )
+          this.subject.update();
         return true;
       },
     });
@@ -28,5 +33,10 @@ export class ReactiveClass {
     await this.subject.destroy();
   }
 
+  setReactiveProps(props: (keyof this)[]) {
+    this.reactiveProps = props as (keyof ReactiveClass)[];
+  }
+
+  private reactiveProps: (keyof ReactiveClass)[] | null = null;
   protected reacting = true;
 }
