@@ -7,7 +7,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "codegen": "index-generator generate",
+    "codegen": "index-generator",
     "build": "tsc",
     "prepublish": "run-s codegen build"
   },

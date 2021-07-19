@@ -6,7 +6,7 @@ import glob from 'glob';
 
 const token = '// index-generator';
 
-program.command('generate').action(() => {
+program.command('generate', { isDefault: true }).action(() => {
   glob('**/index.ts', (err, filePaths) => {
     if (err) throw err;
     filePaths.forEach((filePath) => {

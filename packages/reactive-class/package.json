@@ -8,7 +8,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "start": "yarn build && node scripts/index.js",
-    "codegen": "index-generator generate",
+    "codegen": "index-generator",
     "build": "yarn codegen && tsc",
     "prepublish": "yarn build"
   },

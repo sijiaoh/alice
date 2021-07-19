@@ -12,5 +12,5 @@
 
 ```
 yarn add index-generator
-yarn index-generator generate
+yarn index-generator
 ```
