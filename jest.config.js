@@ -1,13 +1,16 @@
+const pkg = process.env.PKG;
+if (!pkg) throw new Error('Do not use jest directly.');
+
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/scripts/jest-setup-file.ts'],
 
-  moduleDirectories: ['packages/caroline', 'node_modules'],
+  moduleDirectories: [`packages/${pkg}`, 'node_modules'],
   globals: {
     'ts-jest': {
       tsconfig: {
-        baseUrl: 'packages/caroline',
+        baseUrl: `packages/${pkg}`,
       },
     },
   },
