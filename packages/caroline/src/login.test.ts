@@ -1,10 +1,16 @@
 import { Profile } from 'passport';
+import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { SocialProfile } from './entities/SocialProfile';
 import { User } from './entities/User';
 import { login } from './login';
+import { prepareConnection } from './prepareConnection';
 import { Request } from './server-types';
 
-import './test-database';
+beforeAll(async () => {
+  await prepareConnection();
+});
+
+clearDatabaseBetweenEachTest();
 
 export const createProfile = (attributes: Partial<Profile> = {}): Profile => {
   return {

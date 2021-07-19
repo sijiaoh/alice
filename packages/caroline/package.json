@@ -39,6 +39,7 @@
     "react-dom": "17.0.2",
     "react-utils": "workspace:packages/react-utils",
     "reflect-metadata": "^0.1.13",
+    "test-utils": "workspace:packages/test-utils",
     "ts-node": "^10.1.0",
     "type-graphql": "^1.1.1",
     "typed-config": "workspace:packages/typed-config",

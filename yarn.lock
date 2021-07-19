@@ -4029,6 +4029,7 @@ __metadata:
     react-dom: 17.0.2
     react-utils: "workspace:packages/react-utils"
     reflect-metadata: ^0.1.13
+    test-utils: "workspace:packages/test-utils"
     ts-node: ^10.1.0
     type-graphql: ^1.1.1
     typed-config: "workspace:packages/typed-config"
@@ -11202,6 +11203,17 @@ resolve@^2.0.0-next.3:
   checksum: 68294d10066726cbced152aeb8a39cf9fd199199c62afb39290b824f613090f2535fc6acbad7d78f1f34cf00f4f00d42fa14f02d6262b910a7c9e2db2ecfa388
   languageName: node
   linkType: hard
+
+"test-utils@workspace:packages/test-utils":
+  version: 0.0.0-use.local
+  resolution: "test-utils@workspace:packages/test-utils"
+  dependencies:
+    index-generator: "workspace:packages/index-generator"
+    npm-run-all: ^4.1.5
+    typeorm: ^0.2.34
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
 
 "text-table@npm:^0.2.0":
   version: 0.2.0
