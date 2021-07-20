@@ -31,16 +31,6 @@ export class User extends BaseEntity {
     });
   }
 
-  // TypeORMは関連削除が怪しい。
-  static async removeWithSocialProfile(id: number) {
-    return getConnection().transaction(async (manager) => {
-      const user = await manager.findOne(User, id);
-      if (!user) return;
-      await manager.remove(SocialProfile, await user.socialProfiles);
-      await manager.remove(User, user);
-    });
-  }
-
   @PrimaryGeneratedColumn('uuid')
   readonly id!: string;
 
@@ -56,12 +46,8 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   readonly updatedAt!: Date;
 
-  @OneToMany(() => SocialProfile, async (socialProfile) => socialProfile.user, {
-    cascade: true,
-  })
-  readonly socialProfiles!: Promise<SocialProfile[]>;
-  @OneToMany(() => SocialProfile, async (socialProfile) => socialProfile.user, {
-    cascade: true,
-  })
-  readonly repositories!: Promise<Repository[]>;
+  @OneToMany(() => SocialProfile, (socialProfile) => socialProfile.user)
+  readonly socialProfiles!: SocialProfile[];
+  @OneToMany(() => Repository, (repository) => repository.user)
+  readonly repositories!: Repository[];
 }

@@ -4,7 +4,7 @@ const { packages, toPackagePath } = require('./utils');
 
 const runTest = async (pkg) => {
   const pkgPath = toPackagePath(pkg);
-  await execa('yarn', ['jest', '--passWithNoTests', pkgPath], {
+  await execa('yarn', ['jest', '--runInBand', '--passWithNoTests', pkgPath], {
     env: { ...process.env, PKG: pkg },
     stdio: 'inherit',
   }).catch((err) => {

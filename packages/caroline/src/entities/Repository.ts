@@ -11,6 +11,6 @@ export class Repository {
 
   @Column()
   readonly userId!: string;
-  @ManyToOne(() => User, async (user) => user.repositories)
-  readonly user!: Promise<User>;
+  @ManyToOne(() => User, (user) => user.repositories, { onDelete: 'CASCADE' })
+  readonly user!: User;
 }

@@ -1,10 +1,11 @@
-import { Profile } from 'passport';
 import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { SocialProfile } from './entities/SocialProfile';
 import { User } from './entities/User';
 import { login } from './login';
 import { prepareConnection } from './prepareConnection';
 import { Request } from './server-types';
+import { createProfile } from './test/createProfile';
+import { createUser } from './test/createUser';
 
 beforeAll(async () => {
   await prepareConnection();
@@ -12,24 +13,7 @@ beforeAll(async () => {
 
 clearDatabaseBetweenEachTest();
 
-export const createProfile = (attributes: Partial<Profile> = {}): Profile => {
-  return {
-    provider: 'google',
-    id: 'profileId',
-    displayName: '',
-    emails: [{ value: 'email@email.com' }],
-    ...attributes,
-  };
-};
-
 describe('Passport login.', () => {
-  const createUser = async () =>
-    new Promise<User>((resolve) => {
-      void login({} as Request, createProfile(), (_, user) => {
-        resolve(user as User);
-      });
-    });
-
   it('Create new user.', async () => {
     await login({} as Request, createProfile(), (err) => {
       expect(err).toBeUndefined();

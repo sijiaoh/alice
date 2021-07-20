@@ -31,8 +31,8 @@ export class SocialProfile extends BaseEntity {
 
   @Column()
   readonly userId!: string;
-  @ManyToOne(() => User, async (user) => user.socialProfiles, {
-    nullable: false,
+  @ManyToOne(() => User, (user) => user.socialProfiles, {
+    onDelete: 'CASCADE',
   })
-  readonly user!: Promise<User>;
+  readonly user!: User;
 }
