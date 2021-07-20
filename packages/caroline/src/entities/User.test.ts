@@ -24,4 +24,19 @@ describe(User.name, () => {
       expect(await SocialProfile.findOne(socialProfiles?.[0].id)).toBeFalsy();
     });
   });
+
+  describe('delete social profile', () => {
+    it('will not delete user', async () => {
+      const user = await createUser();
+
+      const socialProfiles = await User.findOne(user.id, {
+        relations: ['socialProfiles'],
+      }).then((u) => u?.socialProfiles);
+      expect(socialProfiles?.[0]).toBeTruthy();
+
+      await socialProfiles?.[0].remove();
+      expect(await SocialProfile.findOne(socialProfiles?.[0].id)).toBeFalsy();
+      expect(await User.findOne(user.id)).toBeTruthy();
+    });
+  });
 });
