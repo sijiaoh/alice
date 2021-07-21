@@ -1,13 +1,13 @@
 import autobind from 'autobind-decorator';
 import { v4 } from 'uuid';
 
-type RepositoryCatalog = {
+type Repositories = {
   [id: string]: { id: string; name: string } | undefined;
 };
 
 @autobind
 export class Repository {
-  static async getCatalog(): Promise<RepositoryCatalog> {
+  static async getRepositories(): Promise<Repositories> {
     // TODO: サーバーから取得する。
     return Promise.resolve({});
   }
