@@ -1,8 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  BaseEntity,
+} from 'typeorm';
 import { User } from './User';
 
 @Entity()
-export class Repository {
+export class Repository extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id!: string;
 

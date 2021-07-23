@@ -88,35 +88,41 @@ module.exports = {
 
     const queriesText = queries.props
       .map(({ name, type }) => {
-        const typeName = type.replace(/!$/, '');
+        let typeName = type.replace(/^\[/, '');
+        typeName = typeName.replace(/!$/, '');
+        typeName = typeName.replace(/]$/, '');
+        typeName = typeName.replace(/!$/, '');
         let props = '';
         if (types[typeName]) {
           props = `{
-          ${types[typeName].props
-            .map((prop) => {
-              return prop.name;
-            })
-            .join(' ')}
-        }`;
+            ${types[typeName].props
+              .map((prop) => {
+                return prop.name;
+              })
+              .join(' ')}
+          }`;
         }
 
         return `
-        query ${toUpperCamel(name)} {
-          ${name}${props}
-        }
-      `;
+          query ${toUpperCamel(name)} {
+            ${name}${props}
+          }
+        `;
       })
       .join('\n');
 
     const mutationsText = mutations
       .map((mutation) => {
         let props = '';
-        const returnTypeName = mutation.returnType.replace(/!$/, '');
+        let returnTypeName = mutation.returnType.replace(/^\[/, '');
+        returnTypeName = returnTypeName.replace(/!$/, '');
+        returnTypeName = returnTypeName.replace(/]$/, '');
+        returnTypeName = returnTypeName.replace(/!$/, '');
         const returnType = types[returnTypeName];
         if (returnType) {
           props = `{
-          ${returnType.props.map((type) => type.name).join(' ')}
-        }`;
+            ${returnType.props.map((type) => type.name).join(' ')}
+          }`;
         }
 
         let parameters = '';
@@ -142,10 +148,10 @@ module.exports = {
         }
 
         return `
-        mutation ${toUpperCamel(mutation.name)}${parameters} {
-          ${mutation.name}${args}${props}
-        }
-      `;
+          mutation ${toUpperCamel(mutation.name)}${parameters} {
+            ${mutation.name}${args}${props}
+          }
+        `;
       })
       .join('\n');
 
