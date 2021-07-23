@@ -83,13 +83,13 @@ module.exports = {
         '@typescript-eslint/lines-between-class-members': 'off',
         '@next/next/no-html-link-for-pages': [
           'error',
-          `packages/${project}/pages`,
+          `packages/${project}/src/pages`,
         ],
       },
     })),
     {
       files: nextjsProjects.map(
-        (project) => `packages/${project}/pages/_app.tsx`
+        (project) => `packages/${project}/src/pages/_app.tsx`
       ),
       rules: {
         'react/jsx-props-no-spreading': 'off',
@@ -97,8 +97,8 @@ module.exports = {
     },
     {
       files: nextjsProjects.flatMap((project) => [
-        `packages/${project}/pages/**/*.ts`,
-        `packages/${project}/pages/**/*.tsx`,
+        `packages/${project}/src/pages/**/*.ts`,
+        `packages/${project}/src/pages/**/*.tsx`,
       ]),
       rules: {
         'import/prefer-default-export': 'error',
