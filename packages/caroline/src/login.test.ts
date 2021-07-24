@@ -7,11 +7,7 @@ import { Request } from './server-types';
 import { createProfile } from './test/createProfile';
 import { createUser } from './test/createUser';
 
-beforeAll(async () => {
-  await prepareConnection();
-});
-
-clearDatabaseBetweenEachTest();
+clearDatabaseBetweenEachTest(prepareConnection);
 
 describe('Passport login.', () => {
   it('Create new user.', async () => {

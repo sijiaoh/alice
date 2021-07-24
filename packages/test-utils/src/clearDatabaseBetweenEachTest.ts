@@ -7,9 +7,12 @@ export const resetDatabase = async () => {
   await connection.synchronize(true);
 };
 
-export const clearDatabaseBetweenEachTest = () => {
+export const clearDatabaseBetweenEachTest = (
+  prepareConnection: () => Promise<void>
+) => {
   // @ts-ignore
   beforeAll(async () => {
+    await prepareConnection();
     await resetDatabase();
   });
 

@@ -4,11 +4,7 @@ import { User } from './User';
 import { prepareConnection } from 'src/prepareConnection';
 import { createUser } from 'src/test/createUser';
 
-beforeAll(async () => {
-  await prepareConnection();
-});
-
-clearDatabaseBetweenEachTest();
+clearDatabaseBetweenEachTest(prepareConnection);
 
 describe(User.name, () => {
   describe('delete', () => {

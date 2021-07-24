@@ -15,8 +15,7 @@ import { Context } from 'src/server-types';
 import { createUser } from 'src/test/createUser';
 import { executeOperation } from 'src/test/executeOperation';
 
-beforeAll(prepareConnection);
-clearDatabaseBetweenEachTest();
+clearDatabaseBetweenEachTest(prepareConnection);
 
 describe(RepositoryResolver.name, () => {
   describe(RepositoryResolver.prototype.createRepository.name, () => {
