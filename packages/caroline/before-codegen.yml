@@ -1,5 +1,0 @@
-overwrite: true
-schema: 'generated/schema.gql'
-generates:
-  generated/all-queries.gql:
-    - '../../scripts/all-graphql-queries.js'
