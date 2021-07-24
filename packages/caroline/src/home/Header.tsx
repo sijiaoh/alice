@@ -1,6 +1,6 @@
 import { css, Global } from '@emotion/react';
 import { useRouter } from 'next/dist/client/router';
-import { Attributes, useCallback } from 'react';
+import { Attributes } from 'react';
 
 import { HeaderButton } from './HeaderButton';
 
@@ -15,13 +15,13 @@ export const Header = () => {
 
   const router = useRouter();
 
-  const toTitle = useCallback(async () => {
+  const toTitle = async () => {
     await router.push('/');
-  }, [router]);
+  };
 
-  const login = useCallback(async () => {
+  const login = async () => {
     await router.push('/login/google');
-  }, [router]);
+  };
 
   return (
     <>

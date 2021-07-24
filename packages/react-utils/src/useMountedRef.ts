@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useMountedRef = () => {
   const mountedRef = useRef(true);
@@ -7,5 +7,5 @@ export const useMountedRef = () => {
       mountedRef.current = false;
     };
   }, []);
-  return useMemo(() => mountedRef, []);
+  return mountedRef;
 };
