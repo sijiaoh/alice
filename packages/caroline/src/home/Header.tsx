@@ -1,8 +1,28 @@
 import { css, Global } from '@emotion/react';
+import { useRouter } from 'next/dist/client/router';
+import { Attributes, useCallback } from 'react';
 
-const height = '1.5rem';
+import { HeaderButton } from './HeaderButton';
+
+const height = '2.5em';
 
 export const Header = () => {
+  const partsCss: Attributes['css'] = {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  };
+
+  const router = useRouter();
+
+  const toTitle = useCallback(async () => {
+    await router.push('/');
+  }, [router]);
+
+  const login = useCallback(async () => {
+    await router.push('/login/google');
+  }, [router]);
+
   return (
     <>
       <Global
@@ -17,9 +37,17 @@ export const Header = () => {
           top: 0,
           width: '100%',
           height,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
-        Header
+        <div css={partsCss}>
+          <HeaderButton on={toTitle}>Caroline</HeaderButton>
+        </div>
+        <div css={partsCss}>
+          <HeaderButton on={login}>Login</HeaderButton>
+        </div>
       </div>
     </>
   );
