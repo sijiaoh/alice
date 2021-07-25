@@ -1,9 +1,9 @@
 import { Props } from 'react-utils';
 
 export const HeaderButton = ({
-  on,
+  onClick,
   children,
-}: Props<{ on: () => Promise<void> | void }>) => {
+}: Props<{ onClick: () => Promise<void> | void }>) => {
   return (
     <div
       css={{
@@ -18,8 +18,8 @@ export const HeaderButton = ({
           backgroundColor: 'rgb(200,200,200)',
         },
       }}
-      onClick={on}
-      onKeyDown={on}
+      onClick={onClick}
+      onKeyPress={onClick}
       role="button"
       tabIndex={0}
     >

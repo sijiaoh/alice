@@ -33,7 +33,7 @@ export const Header = () => {
       >
         <div css={partsCss}>
           <HeaderButton
-            on={async () => {
+            onClick={async () => {
               await router.push('/');
             }}
           >
@@ -42,7 +42,7 @@ export const Header = () => {
         </div>
         <div css={partsCss}>
           <HeaderButton
-            on={async () => {
+            onClick={async () => {
               await router.push('/login/google');
             }}
           >
