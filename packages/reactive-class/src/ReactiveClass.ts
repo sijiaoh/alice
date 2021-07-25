@@ -30,6 +30,10 @@ export class ReactiveClass {
     return this.subject.subscribe(arg);
   }
 
+  execAndSubscribe(arg: AsyncObserver) {
+    return this.subject.execAndSubscribe(arg);
+  }
+
   async destroy() {
     await this.subject.destroy();
   }

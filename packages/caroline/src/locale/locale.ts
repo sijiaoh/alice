@@ -11,8 +11,7 @@ export class Locale extends ReactiveClass {
   constructor() {
     super();
     this.setReactiveProps(['lang', 'l']);
-    void this.changeLanguage(this.lang);
-    this.subscribe(async () => {
+    this.execAndSubscribe(async () => {
       await this.changeLanguage(this.lang);
     });
   }
