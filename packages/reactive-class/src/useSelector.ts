@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ReactiveClass } from './ReactiveClass';
+import type { ReactiveClass } from './ReactiveClass';
 
 export const useSelector = <T>(callback: () => T, rcs: ReactiveClass[]) => {
   const [value, setValue] = useState(callback());

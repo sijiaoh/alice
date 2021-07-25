@@ -27,13 +27,7 @@ const tsRules = {
 
   'react/require-default-props': 'off',
 
-  'react-hooks/exhaustive-deps': [
-    'warn',
-    {
-      // reactive-class's hook.'
-      additionalHooks: '(useSelector)',
-    },
-  ],
+  'react-hooks/exhaustive-deps': 'warn',
 };
 
 const nextjsProjects = ['caroline'];

@@ -2,6 +2,7 @@ import { css, Global } from '@emotion/react';
 import { useRouter } from 'next/dist/client/router';
 import { Attributes } from 'react';
 import { HeaderButton } from './HeaderButton';
+import { locale } from 'src/locale/locale';
 
 export const Header = () => {
   const router = useRouter();
@@ -11,6 +12,7 @@ export const Header = () => {
     display: 'flex',
     alignItems: 'center',
   };
+  const l = locale.useL();
 
   return (
     <>
@@ -37,7 +39,7 @@ export const Header = () => {
               await router.push('/');
             }}
           >
-            Caroline
+            {l?.title}
           </HeaderButton>
         </div>
         <div css={partsCss}>
@@ -46,7 +48,7 @@ export const Header = () => {
               await router.push('/login/google');
             }}
           >
-            Login
+            {l?.login}
           </HeaderButton>
         </div>
       </div>

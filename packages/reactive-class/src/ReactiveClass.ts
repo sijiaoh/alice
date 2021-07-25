@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import { AsyncObserver, AsyncSubject } from 'observer-pattern';
+import { useSelector } from './useSelector';
 
 @autobind
 export class ReactiveClass {
@@ -31,6 +32,11 @@ export class ReactiveClass {
 
   async destroy() {
     await this.subject.destroy();
+  }
+
+  useSelector<T>(callback: () => T) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useSelector(callback, [this]);
   }
 
   setReactiveProps(props: (keyof this)[]) {
