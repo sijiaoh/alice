@@ -1,12 +1,8 @@
-import passport, { Profile } from 'passport';
-import {
-  Strategy as GoogleStrategy,
-  VerifyCallback,
-} from 'passport-google-oauth20';
+import { Profile } from 'passport';
+import { VerifyCallback } from 'passport-google-oauth20';
 import { Request } from './server-types';
 import { SocialProfile } from 'src/entities/SocialProfile';
 import { User } from 'src/entities/User';
-import { serverConfig } from 'src/serverConfig';
 
 // Export for test.
 export async function login(
@@ -46,7 +42,7 @@ export async function login(
   // User is not signed in.
   else if (socialProfile) {
     // Login.
-    const user = await socialProfile.user;
+    const { user } = socialProfile;
     done(undefined, user);
   } else {
     // Sign up.
@@ -54,17 +50,3 @@ export async function login(
     done(undefined, user);
   }
 }
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: serverConfig.data.GOOGLE_CLIENT_ID,
-      clientSecret: serverConfig.data.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${serverConfig.data.URL}/login/google/return`,
-      passReqToCallback: true,
-    },
-    (req, _, __, profile, done) => {
-      login(req as unknown as Request, profile, done).catch(done);
-    }
-  )
-);

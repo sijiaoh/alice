@@ -100,15 +100,6 @@ module.exports = {
       },
     },
     {
-      files: nextjsProjects.flatMap((project) => [
-        `packages/${project}/src/entities/**/*.ts`,
-        `packages/${project}/src/entities/**/*.tsx`,
-      ]),
-      rules: {
-        'import/no-cycle': 'off',
-      },
-    },
-    {
       files: ['**/graphql/resolvers/**/*.ts'],
       rules: {
         'class-methods-use-this': 'off',

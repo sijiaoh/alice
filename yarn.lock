@@ -2250,6 +2250,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie-session@npm:^2.0.43":
+  version: 2.0.43
+  resolution: "@types/cookie-session@npm:2.0.43"
+  dependencies:
+    "@types/express": "*"
+    "@types/keygrip": "*"
+  checksum: f41f163830ef7b908db4dd771f01fc7fb14e0e26b31000fe8f000c8bd248e7799a652c4bcddbd00b2aa8019833a1b2ab1a241991b2f79a948df844b0a0305608
+  languageName: node
+  linkType: hard
+
 "@types/cookies@npm:*":
   version: 0.7.7
   resolution: "@types/cookies@npm:0.7.7"
@@ -4008,17 +4018,20 @@ __metadata:
     "@babel/plugin-proposal-decorators": ^7.14.5
     "@emotion/babel-plugin": ^11.3.0
     "@emotion/react": ^11.4.0
+    "@types/cookie-session": ^2.0.43
     "@types/passport": ^1.0.7
     "@types/passport-google-oauth20": ^2.0.9
     apollo-server-micro: ^2.25.2
     autobind-decorator: ^2.4.0
     babel-plugin-transform-typescript-metadata: ^0.3.2
+    cookie-session: ^1.4.0
     eslint: 7.31.0
     graphql: ^15.5.1
     index-generator: "workspace:packages/index-generator"
     mysql-docker: "workspace:packages/mysql-docker"
     mysql2: ^2.2.5
     next: 11.0.1
+    next-connect: ^0.10.1
     npm-run-all: ^4.1.5
     passport: ^0.4.1
     passport-google-oauth20: ^2.0.0
@@ -4467,6 +4480,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie-session@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "cookie-session@npm:1.4.0"
+  dependencies:
+    cookies: 0.8.0
+    debug: 2.6.9
+    on-headers: ~1.0.2
+  checksum: 0923094cd86cb1c9181d4eaaef7800743280addc0061d8b2320adced280c9b80c5a94308a6e21a4c6ca0b2ee91d65afa04dfaa66d814f6cdfd24054605be9908
+  languageName: node
+  linkType: hard
+
+"cookies@npm:0.8.0":
+  version: 0.8.0
+  resolution: "cookies@npm:0.8.0"
+  dependencies:
+    depd: ~2.0.0
+    keygrip: ~1.1.0
+  checksum: c401e0f791e5413af5a5e88db85610fad49a58c91b393a917294562b17cc30626d3730591ba73ce27e93a977f9483272c188e35fcc4ade6d2576c4f74628a9c4
+  languageName: node
+  linkType: hard
+
 "core-js-pure@npm:^3.10.2, core-js-pure@npm:^3.15.0":
   version: 3.15.2
   resolution: "core-js-pure@npm:3.15.2"
@@ -4733,7 +4767,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2, debug@npm:^2.6.9":
+"debug@npm:2, debug@npm:2.6.9, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
   dependencies:
@@ -4862,6 +4896,13 @@ __metadata:
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: f45566ff7019a346852f095768a380778ed544de24e103b479fd5d3e61982d670efbb5234c09d0588d7fdb09c26c48283d7150e4be5e6ce5d3d37cd268d75c4d
+  languageName: node
+  linkType: hard
+
+"depd@npm:~2.0.0":
+  version: 2.0.0
+  resolution: "depd@npm:2.0.0"
+  checksum: 20726d843f5ab5e933211fcb5a440a1a3986ef9d6f85d38cf1eae815ea3cc12fa4436bd35a38e21bdb391a021b57f2d97b9f856873852506acac1b07ac913ba4
   languageName: node
   linkType: hard
 
@@ -7892,6 +7933,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"keygrip@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "keygrip@npm:1.1.0"
+  dependencies:
+    tsscmp: 1.0.6
+  checksum: 917fc9c6ad8528537534ae181f85a566bf74716f3e38e83ff858862ebad24f31f70781b875fbf5a34bba115433361d2dbdad94d4debf0ca6631c85b47a5f0e31
+  languageName: node
+  linkType: hard
+
 "keyv@npm:^3.0.0":
   version: 3.1.0
   resolution: "keyv@npm:3.1.0"
@@ -8644,6 +8694,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-connect@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "next-connect@npm:0.10.1"
+  dependencies:
+    trouter: ^3.1.0
+  checksum: 16e55cf3fdcfff78a776f54b3accbebfc4b17d7a40a01b5fcfa8f40209f8386c91ae74e703f0653e54b87b624131055c1976211ece44e81ac15db18ef2b4435f
+  languageName: node
+  linkType: hard
+
 "next@npm:11.0.1":
   version: 11.0.1
   resolution: "next@npm:11.0.1"
@@ -9046,6 +9105,13 @@ __metadata:
     uuid: ^8.3.2
   languageName: unknown
   linkType: soft
+
+"on-headers@npm:~1.0.2":
+  version: 1.0.2
+  resolution: "on-headers@npm:1.0.2"
+  checksum: 51e75c80755169e765aa76238722e5ad1623f62b13bbc23544ade20cdbb6950cf0e6aa91de35d02ec956f47dc072ee460d8eef82354e4abf8fa692885cb3f2d8
+  languageName: node
+  linkType: hard
 
 "once@npm:^1.3.0, once@npm:^1.3.1, once@npm:^1.4.0":
   version: 1.4.0
@@ -10040,6 +10106,13 @@ __metadata:
     call-bind: ^1.0.2
     define-properties: ^1.1.3
   checksum: 967e462a83cdfd6f226aa9337bda6f739e3fba72a49f3d3f4ed16b60d5a811ba576ef22f01e37b9230022ba715c6207c082ca117160b304b6503e4a6557628f5
+  languageName: node
+  linkType: hard
+
+"regexparam@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "regexparam@npm:1.3.0"
+  checksum: 3be8055bc697d720647e2b2a781e8a784013e80d51724dce833524c8f1a9fbfa7efd3dac90572ce64191b82e908c8e70c6ff40b8da3ff0b3fb4199af73d4a8b5
   languageName: node
   linkType: hard
 
@@ -11326,6 +11399,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"trouter@npm:^3.1.0":
+  version: 3.2.0
+  resolution: "trouter@npm:3.2.0"
+  dependencies:
+    regexparam: ^1.3.0
+  checksum: c65eb0b64a4e283a2524adb75cc09169b2be515e6df6254bbdf00934299270c1788ce09b05c9a3e36bd73315105478ef92bea95304df9c750f5098a82455ecad
+  languageName: node
+  linkType: hard
+
 "ts-invariant@npm:^0.4.0":
   version: 0.4.4
   resolution: "ts-invariant@npm:0.4.4"
@@ -11473,6 +11555,13 @@ resolve@^2.0.0-next.3:
   version: 2.2.0
   resolution: "tslib@npm:2.2.0"
   checksum: 2d35468c470410871c5246e43f12dcb6d0fc363b617c176f26443b9530e5c5ee8448966892a42956168d8f495da7865bda33dfe82c26c91991e28999974a618f
+  languageName: node
+  linkType: hard
+
+"tsscmp@npm:1.0.6":
+  version: 1.0.6
+  resolution: "tsscmp@npm:1.0.6"
+  checksum: 1a5b76eb37c1a331f7e0b99f6414fdb1d58dffbc95301931a00e8728bc9fcb15b676d8e5eb2aecf884f424e8c9a218af388492cffe106539ffc0f8d09d8ab7c1
   languageName: node
   linkType: hard
 

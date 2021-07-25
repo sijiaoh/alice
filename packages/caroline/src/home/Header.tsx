@@ -45,7 +45,7 @@ export const Header = () => {
         <div css={partsCss}>
           <HeaderButton
             onClick={async () => {
-              await router.push('/login/google');
+              await router.push('/api/login/google');
             }}
           >
             {l?.login}

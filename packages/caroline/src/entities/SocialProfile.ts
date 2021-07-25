@@ -8,7 +8,7 @@ import {
   ManyToOne,
   Index,
 } from 'typeorm';
-import { User } from './User';
+import type { User } from './User';
 
 @Entity()
 @Index(['userId', 'provider'], { unique: true })
@@ -31,7 +31,7 @@ export class SocialProfile extends BaseEntity {
 
   @Column()
   readonly userId!: string;
-  @ManyToOne(() => User, (user) => user.socialProfiles, {
+  @ManyToOne('User', (user: User) => user.socialProfiles, {
     onDelete: 'CASCADE',
   })
   readonly user!: User;

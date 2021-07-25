@@ -11,7 +11,7 @@ import {
   Generated,
   getConnection,
 } from 'typeorm';
-import { Repository } from './Repository';
+import type { Repository } from './Repository';
 import { SocialProfile } from './SocialProfile';
 
 @Entity()
@@ -48,6 +48,6 @@ export class User extends BaseEntity {
 
   @OneToMany(() => SocialProfile, (socialProfile) => socialProfile.user)
   readonly socialProfiles!: SocialProfile[];
-  @OneToMany(() => Repository, (repository) => repository.user)
+  @OneToMany('Repository', (repository: Repository) => repository.user)
   readonly repositories!: Repository[];
 }

@@ -17,6 +17,7 @@ if (production && env !== 'staging' && env !== 'production')
 
 export const serverConfig = new TypedConfig(env, {
   URL: 'http://localhost:3000',
+  SESSION_SECRET: 'session-secret',
 
   MYSQL_HOST: 'localhost',
   MYSQL_PORT: '3306',

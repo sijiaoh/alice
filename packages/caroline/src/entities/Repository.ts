@@ -5,7 +5,7 @@ import {
   ManyToOne,
   BaseEntity,
 } from 'typeorm';
-import { User } from './User';
+import type { User } from './User';
 
 @Entity()
 export class Repository extends BaseEntity {
@@ -17,6 +17,6 @@ export class Repository extends BaseEntity {
 
   @Column()
   readonly userId!: string;
-  @ManyToOne(() => User, (user) => user.repositories, { onDelete: 'CASCADE' })
+  @ManyToOne('User', (user: User) => user.repositories, { onDelete: 'CASCADE' })
   readonly user!: User;
 }

@@ -1,7 +1,9 @@
 import 'reflect-metadata';
 
+import { NextHandler } from 'next-connect';
+import { apiConnect } from 'src/apiConnect';
 import { apolloServer } from 'src/graphql/apolloServer';
-import { prepareConnection } from 'src/prepareConnection';
+import { serverConfig } from 'src/serverConfig';
 
 export const config = {
   api: {
@@ -9,7 +11,17 @@ export const config = {
   },
 };
 
-export default async (req: Request, res: Response) => {
-  await prepareConnection();
+const apolloMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextHandler
+) => {
   await apolloServer.createHandler({ path: '/api/graphql' })(req, res);
+  next();
 };
+
+const handler = apiConnect();
+if (serverConfig.development) handler.get(apolloMiddleware);
+handler.post(apolloMiddleware);
+
+export default handler;
