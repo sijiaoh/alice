@@ -5,7 +5,7 @@ afterEach(() => {
 });
 
 describe(AsyncSubject.name, () => {
-  describe('update', () => {
+  describe(AsyncSubject.prototype.update.name, () => {
     // asyncテストはしない。
     // https://github.com/facebook/jest/issues/7151
     it('will be call observers onUpdate with setTimeout', async () => {
@@ -13,11 +13,15 @@ describe(AsyncSubject.name, () => {
 
       const subject = new AsyncSubject();
 
+      let calledExecFuncCount = 0;
       let calledFuncCount = 0;
       let calledUpdateCount = 0;
       let calledAsyncFuncCount = 0;
       let calledAsyncUpdateCount = 0;
 
+      void subject.execAndSubscribe(() => {
+        calledExecFuncCount += 1;
+      });
       subject.subscribe(() => {
         calledFuncCount += 1;
       });
@@ -37,8 +41,12 @@ describe(AsyncSubject.name, () => {
         },
       });
 
+      jest.runAllTimers();
+      await Promise.resolve();
+
       subject.update();
 
+      expect(calledExecFuncCount).toBe(1);
       expect(calledFuncCount).toBe(0);
       expect(calledUpdateCount).toBe(0);
       expect(calledAsyncFuncCount).toBe(0);
@@ -49,6 +57,7 @@ describe(AsyncSubject.name, () => {
       // 一回だと動かない。
       // TODO: 調査する。
       await Promise.resolve();
+      expect(calledExecFuncCount).toBe(2);
       expect(calledFuncCount).toBe(1);
       expect(calledUpdateCount).toBe(1);
       expect(calledAsyncFuncCount).toBe(1);
@@ -58,6 +67,7 @@ describe(AsyncSubject.name, () => {
 
       jest.runAllTimers();
       await Promise.resolve();
+      expect(calledExecFuncCount).toBe(3);
       expect(calledFuncCount).toBe(2);
       expect(calledUpdateCount).toBe(2);
       expect(calledAsyncFuncCount).toBe(2);
@@ -65,7 +75,7 @@ describe(AsyncSubject.name, () => {
     });
   });
 
-  describe('destroy', () => {
+  describe(AsyncSubject.prototype.destroy.name, () => {
     it('will be call observers onDestroy', async () => {
       const subject = new AsyncSubject();
 
