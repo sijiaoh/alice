@@ -1,26 +1,15 @@
 import { css, Global } from '@emotion/react';
 import { useRouter } from 'next/dist/client/router';
 import { Attributes } from 'react';
-
 import { HeaderButton } from './HeaderButton';
 
-const height = '2.5em';
-
 export const Header = () => {
+  const router = useRouter();
+  const height = '2.5em';
   const partsCss: Attributes['css'] = {
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-  };
-
-  const router = useRouter();
-
-  const toTitle = async () => {
-    await router.push('/');
-  };
-
-  const login = async () => {
-    await router.push('/login/google');
   };
 
   return (
@@ -43,10 +32,22 @@ export const Header = () => {
         }}
       >
         <div css={partsCss}>
-          <HeaderButton on={toTitle}>Caroline</HeaderButton>
+          <HeaderButton
+            on={async () => {
+              await router.push('/');
+            }}
+          >
+            Caroline
+          </HeaderButton>
         </div>
         <div css={partsCss}>
-          <HeaderButton on={login}>Login</HeaderButton>
+          <HeaderButton
+            on={async () => {
+              await router.push('/login/google');
+            }}
+          >
+            Login
+          </HeaderButton>
         </div>
       </div>
     </>
