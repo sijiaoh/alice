@@ -1,8 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { ReactiveClass } from './ReactiveClass';
 
 export const useSelector = <T>(callback: () => T, rcs: ReactiveClass[]) => {
-  const [value, setValue] = useState(callback());
+  // 最初の一回のみcallbackを呼び出す。
+  const initedRef = useRef(false);
+  const [value, setValue] = useState(
+    initedRef.current
+      ? (undefined as unknown as T)
+      : () => {
+          initedRef.current = true;
+          return callback();
+        }
+  );
 
   useEffect(() => {
     const unsubscribes = rcs.map((rc) =>

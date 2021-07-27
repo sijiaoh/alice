@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import { Attributes } from 'react';
 import { HeaderButton } from './HeaderButton';
 import { locale } from 'src/locale/locale';
+import { me } from 'src/me';
 
 export const Header = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ export const Header = () => {
     alignItems: 'center',
   };
   const l = locale.useL();
+  me.useSelector();
 
   return (
     <>
@@ -43,13 +45,17 @@ export const Header = () => {
           </HeaderButton>
         </div>
         <div css={partsCss}>
-          <HeaderButton
-            onClick={async () => {
-              await router.push('/api/login/google');
-            }}
-          >
-            {l?.login}
-          </HeaderButton>
+          {me.loggedIn ? (
+            me.penName
+          ) : (
+            <HeaderButton
+              onClick={async () => {
+                await router.push('/api/login/google');
+              }}
+            >
+              {l?.login}
+            </HeaderButton>
+          )}
         </div>
       </div>
     </>

@@ -4027,6 +4027,7 @@ __metadata:
     cookie-session: ^1.4.0
     eslint: 7.31.0
     graphql: ^15.5.1
+    graphql-request: ^3.4.0
     index-generator: "workspace:packages/index-generator"
     mysql-docker: "workspace:packages/mysql-docker"
     mysql2: ^2.2.5
@@ -6245,7 +6246,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-request@npm:^3.3.0":
+"graphql-request@npm:^3.3.0, graphql-request@npm:^3.4.0":
   version: 3.4.0
   resolution: "graphql-request@npm:3.4.0"
   dependencies:

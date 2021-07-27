@@ -1,5 +1,6 @@
 import autobind from 'autobind-decorator';
 import { AsyncObserver, AsyncSubject } from 'observer-pattern';
+import { useCallback, useRef, useState } from 'react';
 import { useSelector } from './useSelector';
 
 @autobind
@@ -38,9 +39,19 @@ export class ReactiveClass {
     await this.subject.destroy();
   }
 
-  useSelector<T>(callback: () => T) {
+  useSelector(): void;
+  useSelector<T>(callback: () => T): T;
+  useSelector<T>(callback?: () => T) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    return useSelector(callback, [this]);
+    const countRef = useRef(0);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [, setCount] = useState(0);
+    const defaultCallback = () => {
+      countRef.current += 1;
+      setCount(countRef.current);
+    };
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useSelector(callback || defaultCallback, [this]);
   }
 
   setReactiveProps(props: (keyof this)[]) {
