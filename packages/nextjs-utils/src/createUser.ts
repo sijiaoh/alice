@@ -17,7 +17,7 @@ export const createUser = async () => {
             where: { provider: profile.provider, token: profile.id },
           });
         },
-        createSocialProfile: async (user: User, profile) => {
+        createSocialProfile: async (user, profile) => {
           return SocialProfile.create({
             userId: user.id,
             provider: profile.provider,

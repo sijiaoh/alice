@@ -2,30 +2,34 @@ import { Profile } from 'passport';
 import { VerifyCallback } from 'passport-google-oauth20';
 import { Request } from './server-types';
 
-export interface FindSocialProfile<SocialProfile> {
+export interface User {
+  id: string;
+}
+
+export interface SocialProfile {
+  userId: string;
+  user: User;
+  save: () => Promise<SocialProfile>;
+}
+
+export interface FindSocialProfile {
   (profile: Profile): Promise<SocialProfile | undefined>;
 }
-export interface CreateSocialProfile<User, SocialProfile> {
+export interface CreateSocialProfile {
   (user: User, profile: Profile): Promise<SocialProfile>;
 }
-export interface CreateUserWithSocialProfile<User> {
+export interface CreateUserWithSocialProfile {
   (profile: Profile): Promise<User>;
 }
-export interface LoginOptions<User, SocialProfile> {
-  findSocialProfile: FindSocialProfile<SocialProfile>;
-  createSocialProfile: CreateSocialProfile<User, SocialProfile>;
-  createUserWithSocialProfile: CreateUserWithSocialProfile<User>;
+
+export interface LoginOptions {
+  findSocialProfile: FindSocialProfile;
+  createSocialProfile: CreateSocialProfile;
+  createUserWithSocialProfile: CreateUserWithSocialProfile;
 }
 
 // Export for test.
-export async function login<
-  User,
-  SocialProfile extends {
-    userId: string;
-    user: User;
-    save: () => Promise<SocialProfile>;
-  }
->(
+export async function login(
   req: Request & { user?: User },
   profile: Profile,
   done: VerifyCallback,
@@ -33,7 +37,7 @@ export async function login<
     findSocialProfile,
     createSocialProfile,
     createUserWithSocialProfile,
-  }: LoginOptions<User, SocialProfile>
+  }: LoginOptions
 ) {
   const socialProfile = await findSocialProfile(profile);
 

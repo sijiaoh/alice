@@ -6,13 +6,13 @@ import { login, LoginOptions } from './login';
 import { prepareConnection } from './prepareConnection';
 import { Request } from './server-types';
 
-const loginOptions: LoginOptions<User, SocialProfile> = {
+const loginOptions: LoginOptions = {
   findSocialProfile: async (profile) => {
     return SocialProfile.findOne({
       where: { provider: profile.provider, token: profile.id },
     });
   },
-  createSocialProfile: async (user: User, profile) => {
+  createSocialProfile: async (user, profile) => {
     return SocialProfile.create({
       userId: user.id,
       provider: profile.provider,
