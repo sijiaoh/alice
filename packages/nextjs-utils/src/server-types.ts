@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { User } from 'src/entities/User';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { User } from './entities/User';
 
 export interface Request extends NextApiRequest {
   session: {

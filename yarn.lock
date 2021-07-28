@@ -2562,6 +2562,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:^17.0.9":
+  version: 17.0.9
+  resolution: "@types/react-dom@npm:17.0.9"
+  dependencies:
+    "@types/react": "*"
+  checksum: 82da85bcfba524fb83946df50e433b8cc942dd30f5f3f6e0756816960ce4b85db6faa2da9f2b83124087fbe0d124580edf7b1017628b78fb28fee057e91512cb
+  languageName: node
+  linkType: hard
+
 "@types/react-test-renderer@npm:^17.0.1":
   version: 17.0.1
   resolution: "@types/react-test-renderer@npm:17.0.1"
@@ -8776,6 +8785,24 @@ __metadata:
   checksum: 823700a2a08757c84985a36f95416fe2f91d35eec07550be166d85526cbe353391d768e14ef363a5a43a3a5f7393ec9aca5181675768c682dacdf73412988e0d
   languageName: node
   linkType: hard
+
+"nextjs-utils@workspace:packages/nextjs-utils":
+  version: 0.0.0-use.local
+  resolution: "nextjs-utils@workspace:packages/nextjs-utils"
+  dependencies:
+    "@types/react-dom": ^17.0.9
+    index-generator: "workspace:packages/index-generator"
+    mysql-docker: "workspace:packages/mysql-docker"
+    npm-run-all: ^4.1.5
+    passport: ^0.4.1
+    passport-google-oauth20: ^2.0.0
+    test-utils: "workspace:packages/test-utils"
+    typed-config: "workspace:packages/typed-config"
+    typeorm: ^0.2.34
+    typescript: ^4.3.5
+    uuid: ^8.3.2
+  languageName: unknown
+  linkType: soft
 
 "nice-try@npm:^1.0.4":
   version: 1.0.5
