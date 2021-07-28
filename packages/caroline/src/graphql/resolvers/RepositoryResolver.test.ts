@@ -35,7 +35,7 @@ describe(RepositoryResolver.name, () => {
 
   describe(RepositoryResolver.prototype.repositories.name, () => {
     it("return user's repositories", async () => {
-      const createRepository = (user: User, name: string) => {
+      const createRepository = async (user: User, name: string) => {
         return Repository.create({ name, user }).save();
       };
 
@@ -43,7 +43,7 @@ describe(RepositoryResolver.name, () => {
       const repositoryName = 'repository name';
 
       const repositories = await Promise.all(
-        [...Array(5)].map(() => {
+        [...Array(5)].map(async () => {
           return createRepository(user, repositoryName);
         })
       );

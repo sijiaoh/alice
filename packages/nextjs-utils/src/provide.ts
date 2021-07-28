@@ -7,7 +7,7 @@ export const provide = (
   getPassportOptions: GetPassportOptions
 ) => {
   const passport = getPassport(getPassportOptions);
-  connect.use(passport.initialize()).get<Request>((req, res, next) => {
+  return connect.use(passport.initialize()).get<Request>((req, res, next) => {
     passport.authenticate(req.query.provider, {
       scope: ['email'],
       session: false,

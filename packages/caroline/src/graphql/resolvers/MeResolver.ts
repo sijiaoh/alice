@@ -1,4 +1,4 @@
-import { Resolver, Query, Ctx, Arg } from 'type-graphql';
+import { Resolver, Query, Ctx } from 'type-graphql';
 import { UserType } from 'src/graphql/types/UserType';
 import { Context } from 'src/server-types';
 

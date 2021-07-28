@@ -1,7 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { User } from './entities/User';
 
-export interface Request extends NextApiRequest {
+export interface DefaultUser {
+  id: string;
+  accessToken: string;
+}
+
+export interface Request<User extends DefaultUser = DefaultUser>
+  extends NextApiRequest {
   session: {
     accessToken: string;
   } | null;
@@ -10,7 +15,7 @@ export interface Request extends NextApiRequest {
 
 export type Response = NextApiResponse;
 
-export interface Context {
-  req: Request;
+export interface Context<User extends DefaultUser = DefaultUser> {
+  req: Request<User>;
   res: Response;
 }

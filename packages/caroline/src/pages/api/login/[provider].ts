@@ -1,14 +1,8 @@
 import 'reflect-metadata';
 
+import { provide } from 'nextjs-utils';
 import { apiConnect } from 'src/apiConnect';
-import { Request } from 'src/server-types';
-import { serverPassport } from 'src/serverPassport';
+import { loginOptions } from 'src/loginOptions';
+import { serverConfig } from 'src/serverConfig';
 
-export default apiConnect()
-  .use(serverPassport.initialize())
-  .get<Request>((req, res, next) => {
-    serverPassport.authenticate(req.query.provider, {
-      scope: ['email'],
-      session: false,
-    })(req, res, next);
-  });
+export default provide(apiConnect(), { ...serverConfig.data, loginOptions });
