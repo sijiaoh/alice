@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import { AsyncObserver, AsyncSubject } from 'observer-pattern';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSelector } from './useSelector';
 
 @autobind
