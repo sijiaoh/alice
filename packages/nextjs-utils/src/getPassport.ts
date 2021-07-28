@@ -3,17 +3,19 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { login, LoginOptions } from './login';
 import { Request } from './server-types';
 
+export interface GetPassportOptions {
+  URL: string;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  loginOptions: LoginOptions;
+}
+
 export const getPassport = ({
   URL,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   loginOptions,
-}: {
-  URL: string;
-  GOOGLE_CLIENT_ID?: string;
-  GOOGLE_CLIENT_SECRET?: string;
-  loginOptions: LoginOptions;
-}) => {
+}: GetPassportOptions) => {
   if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
     passport.use(
       new GoogleStrategy(
@@ -31,4 +33,5 @@ export const getPassport = ({
       )
     );
   }
+  return passport;
 };
