@@ -1,3 +1,5 @@
+const { packages } = require('./scripts/utils');
+
 const tsExtends = [
   'airbnb-typescript',
   'plugin:react-hooks/recommended',
@@ -65,6 +67,12 @@ module.exports = {
       },
       rules: tsRules,
     },
+    ...packages.map((pkg) => ({
+      files: [`packages/${pkg}/**/*.ts`, `packages/${pkg}/**/*.tsx`],
+      parserOptions: {
+        project: `packages/${pkg}/tsconfig.eslint.json`,
+      },
+    })),
     ...nextjsProjects.map((project) => ({
       files: [`packages/${project}/**/*.ts`, `packages/${project}/**/*.tsx`],
       extends: ['next', 'next/core-web-vitals', ...tsExtends],
