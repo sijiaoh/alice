@@ -7,7 +7,7 @@
   "bin": "scripts/index.js",
   "scripts": {
     "start": "yarn build && node scripts/index.js",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "prepublish": "yarn build"
   },
   "dependencies": {

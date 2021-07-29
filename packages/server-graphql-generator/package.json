@@ -3,7 +3,7 @@
   "private": true,
   "bin": "scripts/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "prepublish": "yarn build"
   },
   "dependencies": {

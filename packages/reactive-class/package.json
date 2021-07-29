@@ -9,7 +9,7 @@
   "scripts": {
     "start": "yarn build && node scripts/index.js",
     "codegen": "index-generator",
-    "build": "yarn codegen && tsc",
+    "build": "yarn codegen && tsc --project tsconfig.build.json",
     "prepublish": "yarn build"
   },
   "dependencies": {
