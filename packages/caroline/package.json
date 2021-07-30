@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "generateIndex": "index-generator",
-    "generateGraphqlSchema": "NODE_PATH=${INIT_CWD} ts-node scripts/generate-graphql-schema.ts",
+    "generateGraphqlSchema": "NODE_PATH=${INIT_CWD} ts-node --project tsconfig.bin.json scripts/generate-graphql-schema.ts",
     "graphqlCodegen": "server-graphql-generator",
     "codegen": "run-s generateIndex generateGraphqlSchema graphqlCodegen",
     "dev": "yarn codegen && next dev",

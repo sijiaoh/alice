@@ -58,7 +58,7 @@ module.exports = {
         // https://github.com/benmosher/eslint-plugin-import/issues/1485#issuecomment-535351922
         'import/resolver': {
           typescript: {
-            project: 'packages/*/tsconfig.eslint.json',
+            project: 'tsconfig.eslint.json',
           },
         },
       },
@@ -69,6 +69,13 @@ module.exports = {
     },
     ...packages.map((pkg) => ({
       files: [`packages/${pkg}/**/*.ts`, `packages/${pkg}/**/*.tsx`],
+      settings: {
+        'import/resolver': {
+          typescript: {
+            project: `packages/${pkg}/tsconfig.eslint.json`,
+          },
+        },
+      },
       parserOptions: {
         project: `packages/${pkg}/tsconfig.eslint.json`,
       },
