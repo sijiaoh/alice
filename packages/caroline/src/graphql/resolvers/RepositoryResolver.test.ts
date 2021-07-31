@@ -1,4 +1,5 @@
-import { clearDatabaseBetweenEachTest } from '../../../../test-utils/build';
+import { createUser } from 'nextjs-utils/build/createUser';
+import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { RepositoryResolver } from './RepositoryResolver';
 import { User, Repository } from 'src/entities';
 import {
@@ -10,9 +11,9 @@ import {
   RepositoriesQueryVariables,
 } from 'src/generated/graphql';
 import { apolloServer } from 'src/graphql/apolloServer';
+import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 import { Context } from 'src/server-types';
-import { createUser } from 'src/test/createUser';
 import { executeOperation } from 'src/test/executeOperation';
 
 clearDatabaseBetweenEachTest(prepareConnection);
@@ -20,7 +21,7 @@ clearDatabaseBetweenEachTest(prepareConnection);
 describe(RepositoryResolver.name, () => {
   describe(RepositoryResolver.prototype.createRepository.name, () => {
     it('can create new repository to user', async () => {
-      const user = await createUser();
+      const user = await createUser(loginOptions);
       const repositoryName = 'repository name';
       const res = await executeOperation<
         CreateRepositoryMutation,
@@ -39,7 +40,7 @@ describe(RepositoryResolver.name, () => {
         return Repository.create({ name, user }).save();
       };
 
-      const user = await createUser();
+      const user = await createUser<User>(loginOptions);
       const repositoryName = 'repository name';
 
       const repositories = await Promise.all(

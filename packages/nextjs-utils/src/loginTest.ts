@@ -1,13 +1,17 @@
 import { clearDatabaseBetweenEachTest } from 'test-utils';
+import { BaseEntity } from 'typeorm';
 import { createProfile } from './createProfile';
 import { createUser } from './createUser';
-import { User, SocialProfile } from './entities';
-import { login, LoginOptions } from './login';
+import { login, LoginOptions, User as LoginUser } from './login';
 import { Request } from './server-types';
 
 export const loginTest = (
   prepareConnection: () => Promise<void>,
-  loginOptions: LoginOptions
+  loginOptions: LoginOptions,
+  {
+    User,
+    SocialProfile,
+  }: { User: typeof BaseEntity; SocialProfile: typeof BaseEntity }
 ) => {
   clearDatabaseBetweenEachTest(prepareConnection);
 
@@ -26,7 +30,7 @@ export const loginTest = (
     });
 
     it('Normal login.', async () => {
-      await createUser();
+      await createUser(loginOptions);
 
       await login(
         {} as Request,
@@ -41,7 +45,7 @@ export const loginTest = (
     });
 
     it('Link other social account.', async () => {
-      const userId = await createUser().then((user) => user.id);
+      const userId = await createUser(loginOptions).then((user) => user.id);
 
       await login(
         { user: { id: userId } } as unknown as Request,
@@ -57,7 +61,7 @@ export const loginTest = (
     });
 
     it('Login to another user with linked social profile.', async () => {
-      await createUser();
+      await createUser(loginOptions);
 
       // Create another user.
       const userId = await new Promise<string>((resolve) => {
@@ -65,7 +69,7 @@ export const loginTest = (
           {} as Request,
           createProfile({ id: 'profileId2' }),
           (_, u) => {
-            resolve((u as User).id);
+            resolve((u as LoginUser).id);
           },
           loginOptions
         );
@@ -85,7 +89,7 @@ export const loginTest = (
     });
 
     it('Login to user who is already linked to another social profile with this provider.', async () => {
-      const userId = await createUser().then((user) => user.id);
+      const userId = await createUser(loginOptions).then((user) => user.id);
 
       await login(
         { user: { id: userId } } as unknown as Request,
