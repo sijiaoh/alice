@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Ctx, Arg } from 'type-graphql';
-import { Repository } from 'src/entities/Repository';
+import { RepositoryEntity } from 'src/entities/RepositoryEntity';
 import { RepositoryType } from 'src/graphql/types/RepositoryType';
 import { Context } from 'src/server-types';
 
@@ -12,7 +12,7 @@ export class RepositoryResolver {
   ): Promise<RepositoryType> {
     const { user } = req;
     if (!user) throw new Error('Authorization required.');
-    const repository = await Repository.create({ name, user }).save();
+    const repository = await RepositoryEntity.create({ name, user }).save();
     const { id } = repository;
     return { id, name };
   }
@@ -21,7 +21,9 @@ export class RepositoryResolver {
   async repositories(@Ctx() { req }: Context): Promise<RepositoryType[]> {
     const { user } = req;
     if (!user) throw new Error('Authorization required.');
-    const repositories = await Repository.find({ where: { userId: user.id } });
+    const repositories = await RepositoryEntity.find({
+      where: { userId: user.id },
+    });
     return repositories;
   }
 }

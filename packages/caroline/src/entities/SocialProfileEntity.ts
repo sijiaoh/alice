@@ -8,12 +8,12 @@ import {
   ManyToOne,
   Index,
 } from 'typeorm';
-import type { User } from './User';
+import type { UserEntity } from './UserEntity';
 
-@Entity()
+@Entity('social_profiles')
 @Index(['userId', 'provider'], { unique: true })
 @Index(['provider', 'token'], { unique: true })
-export class SocialProfile extends BaseEntity {
+export class SocialProfileEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id!: number;
 
@@ -31,8 +31,8 @@ export class SocialProfile extends BaseEntity {
 
   @Column()
   readonly userId!: string;
-  @ManyToOne('User', (user: User) => user.socialProfiles, {
+  @ManyToOne('UserEntity', (user: UserEntity) => user.socialProfiles, {
     onDelete: 'CASCADE',
   })
-  readonly user!: User;
+  readonly user!: UserEntity;
 }

@@ -11,16 +11,16 @@ import {
   Generated,
   getConnection,
 } from 'typeorm';
-import type { Repository } from './Repository';
-import { SocialProfile } from './SocialProfile';
+import type { RepositoryEntity } from './RepositoryEntity';
+import { SocialProfileEntity } from './SocialProfileEntity';
 
-@Entity()
-export class User extends BaseEntity {
+@Entity('users')
+export class UserEntity extends BaseEntity {
   static async createWithSocialProfile(profile: Profile) {
     return getConnection().transaction(async (manager) => {
-      const user = await manager.save(manager.create(User));
+      const user = await manager.save(manager.create(UserEntity));
       await manager.save(
-        manager.create(SocialProfile, {
+        manager.create(SocialProfileEntity, {
           userId: user.id,
           provider: profile.provider,
           token: profile.id,
@@ -46,8 +46,11 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   readonly updatedAt!: Date;
 
-  @OneToMany(() => SocialProfile, (socialProfile) => socialProfile.user)
-  readonly socialProfiles!: SocialProfile[];
-  @OneToMany('Repository', (repository: Repository) => repository.user)
-  readonly repositories!: Repository[];
+  @OneToMany(() => SocialProfileEntity, (socialProfile) => socialProfile.user)
+  readonly socialProfiles!: SocialProfileEntity[];
+  @OneToMany(
+    'RepositoryEntity',
+    (repository: RepositoryEntity) => repository.user
+  )
+  readonly repositories!: RepositoryEntity[];
 }

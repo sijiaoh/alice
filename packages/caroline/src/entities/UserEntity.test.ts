@@ -1,24 +1,26 @@
 import { createUser } from 'nextjs-utils/build/createUser';
 import { clearDatabaseBetweenEachTest } from 'test-utils';
-import { SocialProfile } from './SocialProfile';
-import { User } from './User';
+import { SocialProfileEntity } from './SocialProfileEntity';
+import { UserEntity } from './UserEntity';
 import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 
 clearDatabaseBetweenEachTest(prepareConnection);
 
-describe(User.name, () => {
+describe(UserEntity.name, () => {
   describe('delete', () => {
     it('will delete own social profiles too', async () => {
       const user = await createUser(loginOptions);
 
-      const socialProfiles = await User.findOne(user.id, {
+      const socialProfiles = await UserEntity.findOne(user.id, {
         relations: ['socialProfiles'],
       }).then((u) => u?.socialProfiles);
       expect(socialProfiles?.[0]).toBeTruthy();
 
       await user.remove();
-      expect(await SocialProfile.findOne(socialProfiles?.[0].id)).toBeFalsy();
+      expect(
+        await SocialProfileEntity.findOne(socialProfiles?.[0].id)
+      ).toBeFalsy();
     });
   });
 
@@ -26,14 +28,16 @@ describe(User.name, () => {
     it('will not delete user', async () => {
       const user = await createUser(loginOptions);
 
-      const socialProfiles = await User.findOne(user.id, {
+      const socialProfiles = await UserEntity.findOne(user.id, {
         relations: ['socialProfiles'],
       }).then((u) => u?.socialProfiles);
       expect(socialProfiles?.[0]).toBeTruthy();
 
       await socialProfiles?.[0].remove();
-      expect(await SocialProfile.findOne(socialProfiles?.[0].id)).toBeFalsy();
-      expect(await User.findOne(user.id)).toBeTruthy();
+      expect(
+        await SocialProfileEntity.findOne(socialProfiles?.[0].id)
+      ).toBeFalsy();
+      expect(await UserEntity.findOne(user.id)).toBeTruthy();
     });
   });
 });

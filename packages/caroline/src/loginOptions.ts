@@ -1,14 +1,14 @@
 import { LoginOptions } from 'nextjs-utils';
-import { SocialProfile, User } from 'src/entities';
+import { SocialProfileEntity, UserEntity } from 'src/entities';
 
 export const loginOptions: LoginOptions = {
   findSocialProfile: async (profile) => {
-    return SocialProfile.findOne({
+    return SocialProfileEntity.findOne({
       where: { provider: profile.provider, token: profile.id },
     });
   },
   createSocialProfile: async (user, profile) => {
-    return SocialProfile.create({
+    return SocialProfileEntity.create({
       userId: user.id,
       provider: profile.provider,
       token: profile.id,
@@ -16,6 +16,6 @@ export const loginOptions: LoginOptions = {
     }).save();
   },
   createUserWithSocialProfile: async (profile) => {
-    return User.createWithSocialProfile(profile);
+    return UserEntity.createWithSocialProfile(profile);
   },
 };

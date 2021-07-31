@@ -1,4 +1,4 @@
 // index-generator
-export * from './Repository';
-export * from './SocialProfile';
-export * from './User';
+export * from './RepositoryEntity';
+export * from './SocialProfileEntity';
+export * from './UserEntity';

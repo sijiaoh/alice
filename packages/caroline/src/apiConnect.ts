@@ -1,6 +1,6 @@
 import cookieSession from 'cookie-session';
 import nextConnect from 'next-connect';
-import { User } from './entities';
+import { UserEntity } from './entities';
 import { Request } from './server-types';
 import { prepareConnection } from 'src/prepareConnection';
 import { serverConfig } from 'src/serverConfig';
@@ -29,7 +29,7 @@ export const apiConnect = () => {
           return;
         }
 
-        const user = await User.findOne({ where: { accessToken } });
+        const user = await UserEntity.findOne({ where: { accessToken } });
         if (!user) {
           req.session = null;
           next();

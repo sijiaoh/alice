@@ -1,7 +1,7 @@
 import { createUser } from 'nextjs-utils/build/createUser';
 import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { RepositoryResolver } from './RepositoryResolver';
-import { User, Repository } from 'src/entities';
+import { UserEntity, RepositoryEntity } from 'src/entities';
 import {
   CreateRepositoryDocument,
   CreateRepositoryMutation,
@@ -36,11 +36,11 @@ describe(RepositoryResolver.name, () => {
 
   describe(RepositoryResolver.prototype.repositories.name, () => {
     it("return user's repositories", async () => {
-      const createRepository = async (user: User, name: string) => {
-        return Repository.create({ name, user }).save();
+      const createRepository = async (user: UserEntity, name: string) => {
+        return RepositoryEntity.create({ name, user }).save();
       };
 
-      const user = await createUser<User>(loginOptions);
+      const user = await createUser<UserEntity>(loginOptions);
       const repositoryName = 'repository name';
 
       const repositories = await Promise.all(

@@ -3,8 +3,8 @@ import {
   Response as BaseResponse,
   Context as BaseContext,
 } from 'nextjs-utils';
-import { User } from './entities';
+import { UserEntity } from './entities';
 
-export type Request = BaseRequest<User>;
+export type Request = BaseRequest<UserEntity>;
 export type Response = BaseResponse;
-export type Context = BaseContext<User>;
+export type Context = BaseContext<UserEntity>;
