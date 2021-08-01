@@ -58,7 +58,6 @@ export class AsyncSubject {
   private updateObserver([id, data]: [string, ObserverData]) {
     if (!data) return;
     if (data.calling) {
-      // eslint-disable-next-line no-param-reassign
       data.reserved = true;
       return;
     }
@@ -85,7 +84,6 @@ export class AsyncSubject {
       }, 0);
     };
 
-    // eslint-disable-next-line no-param-reassign
     data.calling = true;
     call();
   }

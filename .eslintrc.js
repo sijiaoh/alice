@@ -11,6 +11,7 @@ const tsExtends = [
 
 const tsRules = {
   'no-void': 'off',
+  'no-param-reassign': 'off',
 
   'import/prefer-default-export': 'off',
   'import/no-default-export': 'error',
