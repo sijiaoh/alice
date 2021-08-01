@@ -51,22 +51,29 @@ export class ReactiveClass<T> {
 
   readonly state: RecoilState<T>;
 
-  constructor(key: string, defaultStore: T) {
+  get data() {
+    return this.getData();
+  }
+  set data(data: Readonly<T>) {
+    this.setData(data);
+  }
+
+  constructor(key: string, defaultStore: Readonly<T>) {
     this.state = atom({ key, default: defaultStore });
   }
 
-  getState() {
+  getData() {
     if (!ReactiveClass.get) throw new Error(ReactiveClass.notProvideError);
     return ReactiveClass.get(this.state).getValue();
   }
 
-  setState(state: T) {
+  setData(state: Readonly<T>) {
     if (!ReactiveClass.set) throw new Error(ReactiveClass.notProvideError);
     ReactiveClass.set(this.state, state);
   }
 
-  changeState(callback: (state: T) => T | void) {
-    this.setState(produce(this.getState(), callback));
+  changeValue(callback: (state: T) => Readonly<T> | void) {
+    this.setData(produce(this.getData(), callback));
   }
 
   useState() {

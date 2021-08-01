@@ -13,7 +13,7 @@ class SomeClass extends ReactiveClass<{
 }
 
 describe(ReactiveClass.name, () => {
-  describe(ReactiveClass.prototype.changeState.name, () => {
+  describe(ReactiveClass.prototype.changeValue.name, () => {
     it('will update state', () => {
       const some = new SomeClass('some');
 
@@ -26,29 +26,28 @@ describe(ReactiveClass.name, () => {
       });
 
       void act(() => {
-        some.changeState((state) => {
+        some.changeValue((state) => {
           state.num += 1;
           state.str = '1';
           state.obj.key = 1;
         });
       });
 
-      const state1 = some.getState();
-      expect(state1.num).toBe(1);
-      expect(state1.str).toBe('1');
-      expect(state1.obj.key).toBe(1);
+      expect(some.data.num).toBe(1);
+      expect(some.data.str).toBe('1');
+      expect(some.data.obj.key).toBe(1);
 
       void act(() => {
-        some.changeState((state) => {
-          state.num += 1;
-          state.str = '2';
-        });
+        some.data = {
+          ...some.data,
+          num: some.data.num + 1,
+          str: '2',
+        };
       });
 
-      const state2 = some.getState();
-      expect(state2.num).toBe(2);
-      expect(state2.str).toBe('2');
-      expect(state2.obj.key).toBe(1);
+      expect(some.data.num).toBe(2);
+      expect(some.data.str).toBe('2');
+      expect(some.data.obj.key).toBe(1);
     });
   });
 });
