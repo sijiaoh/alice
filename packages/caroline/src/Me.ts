@@ -1,14 +1,14 @@
+import autobind from 'autobind-decorator';
 import { ReactiveClass } from '../../reactive-class/build';
 import { sdk } from './sdk';
 import { UserType } from 'src/generated/graphql';
 
-class Me extends ReactiveClass implements Omit<UserType, '__typename'> {
-  loggedIn = false;
-  id = '';
-  penName = '';
+type MeData = Omit<UserType, '__typename'> | undefined;
 
+@autobind
+export class Me extends ReactiveClass<MeData> {
   constructor() {
-    super();
+    super(Me.name, undefined);
     void this.load();
   }
 
@@ -21,10 +21,9 @@ class Me extends ReactiveClass implements Omit<UserType, '__typename'> {
       .catch(() => null);
     if (!me) return;
 
-    this.loggedIn = true;
-    this.id = me.id;
-    this.penName = me.penName;
+    this.data = {
+      id: me.id,
+      penName: me.penName,
+    };
   }
 }
-
-export const me = new Me();

@@ -2,7 +2,7 @@
 
 import autobind from 'autobind-decorator';
 import { produce } from 'immer';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Props } from 'react-utils';
 import {
   atom,
@@ -25,19 +25,24 @@ export class ReactiveClass<T> {
   ) => void;
 
   static Component({ children }: Props) {
-    const initialize = useRecoilCallback(({ snapshot, set }) => {
+    const dummy = useRecoilCallback(({ snapshot, set }) => {
       ReactiveClass.get = snapshot.getLoadable;
       ReactiveClass.set = set;
       return () => {};
     });
+
     useRecoilTransactionObserver_UNSTABLE(({ snapshot }) => {
       ReactiveClass.get = snapshot.getLoadable;
     });
-    // jest用呼び出し。
+
+    const [initialized, setInitialized] = useState(false);
     useEffect(() => {
-      initialize();
-    }, [initialize]);
-    return <>{children}</>;
+      // jest用呼び出し。
+      dummy();
+      setInitialized(true);
+    }, [dummy]);
+
+    return <>{initialized ? children : null}</>;
   }
 
   static Provider({ children }: Props) {

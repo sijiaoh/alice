@@ -2,8 +2,7 @@ import { css, Global } from '@emotion/react';
 import { useRouter } from 'next/dist/client/router';
 import { Attributes } from 'react';
 import { HeaderButton } from './HeaderButton';
-import { locale } from 'src/locale/locale';
-import { me } from 'src/me';
+import { App } from 'src/App';
 
 export const Header = () => {
   const router = useRouter();
@@ -13,8 +12,9 @@ export const Header = () => {
     display: 'flex',
     alignItems: 'center',
   };
-  const l = locale.useL();
-  me.useSelector();
+  const app = App.useApp();
+  const [{ l }] = app.locale.useState();
+  const [meValue] = app.me.useState();
 
   return (
     <>
@@ -45,8 +45,8 @@ export const Header = () => {
           </HeaderButton>
         </div>
         <div css={partsCss}>
-          {me.loggedIn ? (
-            me.penName
+          {meValue ? (
+            meValue.penName
           ) : (
             <HeaderButton
               onClick={async () => {
