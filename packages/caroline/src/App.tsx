@@ -7,7 +7,7 @@ import { Locale } from 'src/locale/Locale';
 @autobind
 export class App {
   static context = createContext<{ app?: App }>({});
-  static instance?: App;
+  static instance: App;
 
   static Provider({ children }: Props) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
