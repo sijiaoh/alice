@@ -29,12 +29,16 @@ module.exports = {
       }]
     */
     const types = typeLines.reduce((obj, line) => {
-      const name = line.match(/type ([^\s]*) {/)[1];
-      const matches = line ? [...line.matchAll(/([^\s]*): ([^\s}$]*)/g)] : [];
-      const props = matches.map((match) => ({
-        name: match[1],
-        type: match[2],
-      }));
+      const matches = line.match(/type (.*) { {2}(.*)}/);
+      const propLines = matches[2].split('  ');
+      const props = propLines.map((l) => {
+        const match = l.match(/(.*): (.*)/);
+        return {
+          name: match[1],
+          type: match[2],
+        };
+      });
+      const name = matches[1];
       return { ...obj, [name]: { name, props } };
     }, {});
 
@@ -103,9 +107,35 @@ module.exports = {
           }`;
         }
 
+        let queryName = name;
+        let queryParams = '';
+        const match = name.match(/(.*)\((.*)\)/);
+        if (match) {
+          [, queryName] = match;
+          if (match[2]) {
+            queryParams += '(';
+            queryParams += match[2]
+              .split(', ')
+              .map((param) => `$${param}`)
+              .join(', ');
+            queryParams += ')';
+          }
+        }
+
+        let queryParams2 = '';
+        if (match && match[2]) {
+          queryParams2 += '(';
+          queryParams2 += match[2]
+            .split(', ')
+            .map((v) => v.split(': ')[0])
+            .map((param) => `${param}: $${param}`)
+            .join(', ');
+          queryParams2 += ')';
+        }
+
         return `
-          query ${toUpperCamel(name)} {
-            ${name}${props}
+          query ${toUpperCamel(queryName)}${queryParams} {
+            ${queryName}${queryParams2}${props}
           }
         `;
       })

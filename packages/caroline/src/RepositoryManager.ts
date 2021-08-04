@@ -1,5 +1,5 @@
-import { v4 } from 'uuid';
 import { Repository } from './Repository';
+import { sdk } from './sdk';
 
 type RepositoryList = { id: string; name: string }[];
 type Repositories = Repository[];
@@ -15,9 +15,9 @@ export class RepositoryManager {
   }
 
   async create(name: string) {
-    const id = v4();
-    // Call create repository graphql mutate.
-    await Promise.resolve(name);
+    const {
+      createRepository: { id },
+    } = await sdk.CreateRepository({ name });
     return this.load(id);
   }
 
@@ -27,15 +27,12 @@ export class RepositoryManager {
     );
     if (existsRepository) return existsRepository;
 
-    // TODO: サーバーから取得する。
-    const repository = await Promise.resolve(
-      new Repository(id, 'repository-name')
-    );
-
+    const { repository } = await sdk.Repository({ id });
     if (!this.repositoryList.some((elm) => elm.id === repository.id))
       this.repositoryList.push({ id, name: repository.name });
+    if (!this.repositories.some((repo) => repo.id === id))
+      this.repositories.push(repository);
 
-    this.repositories.push(repository);
     return repository;
   }
 }

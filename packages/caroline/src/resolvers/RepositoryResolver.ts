@@ -7,14 +7,30 @@ import { RepositoryType } from 'src/types/RepositoryType';
 export class RepositoryResolver {
   @Mutation(() => RepositoryType)
   async createRepository(
-    @Arg('name') name: string,
-    @Ctx() { req }: Context
+    @Ctx() { req }: Context,
+    @Arg('name') name: string
   ): Promise<RepositoryType> {
     const { user } = req;
     if (!user) throw new Error('Authorization required.');
     const repository = await RepositoryEntity.create({ name, user }).save();
     const { id } = repository;
     return { id, name };
+  }
+
+  @Query(() => RepositoryType)
+  async repository(
+    @Ctx() { req }: Context,
+    @Arg('id') id: string
+  ): Promise<RepositoryType> {
+    const { user } = req;
+    if (!user) throw new Error('Authorization required.');
+
+    const repository = await RepositoryEntity.findOne({
+      where: { userId: user.id, id },
+    });
+    if (!repository) throw new Error('');
+
+    return { id: repository.id, name: repository.name };
   }
 
   @Query(() => [RepositoryType])

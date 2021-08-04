@@ -4057,7 +4057,6 @@ __metadata:
     type-graphql: ^1.1.1
     typed-config: "workspace:packages/typed-config"
     typeorm: ^0.2.34
-    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
