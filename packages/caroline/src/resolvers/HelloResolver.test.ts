@@ -1,10 +1,10 @@
 import { HelloResolver } from './HelloResolver';
+import { apolloServer } from 'src/apolloServer';
 import {
   HelloDocument,
   HelloQuery,
   HelloQueryVariables,
 } from 'src/generated/graphql';
-import { apolloServer } from 'src/graphql/apolloServer';
 import { Context } from 'src/server-types';
 import { executeOperation } from 'src/test/executeOperation';
 

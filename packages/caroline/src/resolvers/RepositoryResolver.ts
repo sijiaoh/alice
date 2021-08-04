@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Ctx, Arg } from 'type-graphql';
 import { RepositoryEntity } from 'src/entities/RepositoryEntity';
-import { RepositoryType } from 'src/graphql/types/RepositoryType';
 import { Context } from 'src/server-types';
+import { RepositoryType } from 'src/types/RepositoryType';
 
 @Resolver()
 export class RepositoryResolver {

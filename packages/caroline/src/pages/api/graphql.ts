@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { NextHandler } from 'next-connect';
 import { apiConnect } from 'src/apiConnect';
-import { apolloServer } from 'src/graphql/apolloServer';
+import { apolloServer } from 'src/apolloServer';
 import { serverConfig } from 'src/serverConfig';
 
 export const config = {

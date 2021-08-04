@@ -116,7 +116,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/graphql/resolvers/**/*.ts'],
+      files: ['**/src/resolvers/**/*.ts'],
       rules: {
         'class-methods-use-this': 'off',
       },

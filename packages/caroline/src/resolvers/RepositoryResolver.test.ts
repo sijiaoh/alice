@@ -1,6 +1,7 @@
 import { createUser } from 'nextjs-utils/build/createUser';
 import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { RepositoryResolver } from './RepositoryResolver';
+import { apolloServer } from 'src/apolloServer';
 import { UserEntity, RepositoryEntity } from 'src/entities';
 import {
   CreateRepositoryDocument,
@@ -10,7 +11,6 @@ import {
   RepositoriesQuery,
   RepositoriesQueryVariables,
 } from 'src/generated/graphql';
-import { apolloServer } from 'src/graphql/apolloServer';
 import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 import { Context } from 'src/server-types';

@@ -1,6 +1,6 @@
 import { Resolver, Query, Ctx } from 'type-graphql';
-import { UserType } from 'src/graphql/types/UserType';
 import { Context } from 'src/server-types';
+import { UserType } from 'src/types/UserType';
 
 @Resolver()
 export class MeResolver {

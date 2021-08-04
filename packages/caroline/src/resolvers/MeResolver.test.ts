@@ -1,9 +1,9 @@
 import { createUser } from 'nextjs-utils/build/createUser';
-import { clearDatabaseBetweenEachTest } from '../../../../test-utils/build';
+import { clearDatabaseBetweenEachTest } from '../../../test-utils/build';
 import { MeResolver } from './MeResolver';
+import { apolloServer } from 'src/apolloServer';
 import { UserEntity } from 'src/entities';
 import { MeDocument, MeQuery, MeQueryVariables } from 'src/generated/graphql';
-import { apolloServer } from 'src/graphql/apolloServer';
 import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 import { Context } from 'src/server-types';
