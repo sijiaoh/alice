@@ -1,3 +1,4 @@
+import { flushPromises } from 'test-utils';
 import { AsyncSubject } from './AsyncSubject';
 
 describe(AsyncSubject.name, () => {
@@ -33,7 +34,7 @@ describe(AsyncSubject.name, () => {
         },
       });
 
-      await new Promise(setImmediate);
+      await flushPromises();
 
       expect(calledExecFuncCount).toBe(1);
       expect(calledFuncCount).toBe(0);
@@ -42,7 +43,7 @@ describe(AsyncSubject.name, () => {
       expect(calledAsyncUpdateCount).toBe(0);
 
       subject.update();
-      await new Promise(setImmediate);
+      await flushPromises();
 
       expect(calledExecFuncCount).toBe(2);
       expect(calledFuncCount).toBe(1);
@@ -51,7 +52,7 @@ describe(AsyncSubject.name, () => {
       expect(calledAsyncUpdateCount).toBe(1);
 
       subject.update();
-      await new Promise(setImmediate);
+      await flushPromises();
 
       expect(calledExecFuncCount).toBe(3);
       expect(calledFuncCount).toBe(2);
