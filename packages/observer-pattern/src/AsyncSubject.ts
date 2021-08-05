@@ -3,8 +3,17 @@ import { sleep } from 'sleep';
 import { v4 } from 'uuid';
 import { AsyncObserver } from './AsyncObserver';
 
+interface CheckUpdate {
+  (): Promise<boolean> | boolean;
+}
+
 type ObserverData =
-  | { observer: AsyncObserver; calling: boolean; reserved: boolean }
+  | {
+      observer: AsyncObserver;
+      calling: boolean;
+      reserved: boolean;
+      checkUpdate: CheckUpdate;
+    }
   | undefined;
 
 @autobind
@@ -13,31 +22,41 @@ export class AsyncSubject {
     [id: string]: ObserverData;
   } = {};
 
-  subscribe(observer: AsyncObserver) {
+  subscribe(observer: AsyncObserver, checkUpdate: CheckUpdate = () => true) {
     const id = v4();
-    this.observerDatas[id] = { observer, calling: false, reserved: false };
+    this.observerDatas[id] = {
+      observer,
+      calling: false,
+      reserved: false,
+      checkUpdate,
+    };
     return () => {
       delete this.observerDatas[id];
     };
   }
 
-  execAndSubscribe(observer: AsyncObserver) {
+  execAndSubscribe(
+    observer: AsyncObserver,
+    checkUpdate: CheckUpdate = () => true
+  ) {
     const id = v4();
-    const data = { observer, calling: false, reserved: false };
+    const data = { observer, calling: false, reserved: false, checkUpdate };
     this.observerDatas[id] = data;
 
-    this.updateObserver([id, data]);
+    void this.updateObserver([id, data], checkUpdate);
 
     return () => {
       delete this.observerDatas[id];
     };
   }
 
-  update() {
+  update(checkUpdate: CheckUpdate = () => true) {
     if (this.destroyed)
       throw new Error('Can not call update after called destroy');
 
-    Object.entries(this.observerDatas).forEach(this.updateObserver);
+    Object.entries(this.observerDatas).forEach(
+      (entry) => void this.updateObserver(entry, checkUpdate)
+    );
   }
 
   async destroy() {
@@ -55,8 +74,13 @@ export class AsyncSubject {
     await Promise.all(promises);
   }
 
-  private updateObserver([id, data]: [string, ObserverData]) {
+  private async updateObserver(
+    [id, data]: [string, ObserverData],
+    checkUpdate: CheckUpdate
+  ) {
     if (!data) return;
+    if (!(await checkUpdate())) return;
+    if (!(await data.checkUpdate())) return;
     if (data.calling) {
       data.reserved = true;
       return;
@@ -65,23 +89,29 @@ export class AsyncSubject {
     const { observer } = data;
 
     const call = () => {
-      setTimeout(() => {
-        void (async () => {
-          const d = this.observerDatas[id];
-          if (!d) return;
-          d.reserved = false;
+      const core = async () => {
+        const d = this.observerDatas[id];
+        if (!d) return;
+        d.reserved = false;
 
-          if (typeof observer === 'function') await observer();
-          else await observer.onUpdate?.();
+        if (typeof observer === 'function') await observer();
+        else await observer.onUpdate?.();
 
-          // await中に削除される可能性を考慮する。
-          const newData = this.observerDatas[id];
-          if (!newData) return;
+        // await中に削除される可能性を考慮する。
+        const newData = this.observerDatas[id];
+        if (!newData) return;
 
-          if (newData.reserved) call();
-          else newData.calling = false;
-        })();
-      }, 0);
+        if (newData.reserved) call();
+        else newData.calling = false;
+      };
+
+      if (process.env.ENV !== 'test') {
+        setTimeout(() => {
+          void core();
+        }, 0);
+      } else {
+        void core();
+      }
     };
 
     data.calling = true;

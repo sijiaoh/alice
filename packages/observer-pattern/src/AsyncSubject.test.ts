@@ -1,16 +1,10 @@
 import { AsyncSubject } from './AsyncSubject';
 
-afterEach(() => {
-  jest.useRealTimers();
-});
-
 describe(AsyncSubject.name, () => {
   describe(AsyncSubject.prototype.update.name, () => {
     // asyncテストはしない。
     // https://github.com/facebook/jest/issues/7151
     it('will be call observers onUpdate with setTimeout', async () => {
-      jest.useFakeTimers();
-
       const subject = new AsyncSubject();
 
       let calledExecFuncCount = 0;
@@ -31,20 +25,15 @@ describe(AsyncSubject.name, () => {
         },
       });
       subject.subscribe(async () => {
-        await Promise.resolve();
-        calledAsyncFuncCount += 1;
+        calledAsyncFuncCount += await Promise.resolve(1);
       });
       subject.subscribe({
         onUpdate: async () => {
-          await Promise.resolve();
-          calledAsyncUpdateCount += 1;
+          calledAsyncUpdateCount += await Promise.resolve(1);
         },
       });
 
-      jest.runAllTimers();
-      await Promise.resolve();
-
-      subject.update();
+      await new Promise(setImmediate);
 
       expect(calledExecFuncCount).toBe(1);
       expect(calledFuncCount).toBe(0);
@@ -52,11 +41,9 @@ describe(AsyncSubject.name, () => {
       expect(calledAsyncFuncCount).toBe(0);
       expect(calledAsyncUpdateCount).toBe(0);
 
-      jest.runAllTimers();
-      await Promise.resolve();
-      // 一回だと動かない。
-      // TODO: 調査する。
-      await Promise.resolve();
+      subject.update();
+      await new Promise(setImmediate);
+
       expect(calledExecFuncCount).toBe(2);
       expect(calledFuncCount).toBe(1);
       expect(calledUpdateCount).toBe(1);
@@ -64,9 +51,8 @@ describe(AsyncSubject.name, () => {
       expect(calledAsyncUpdateCount).toBe(1);
 
       subject.update();
+      await new Promise(setImmediate);
 
-      jest.runAllTimers();
-      await Promise.resolve();
       expect(calledExecFuncCount).toBe(3);
       expect(calledFuncCount).toBe(2);
       expect(calledUpdateCount).toBe(2);
