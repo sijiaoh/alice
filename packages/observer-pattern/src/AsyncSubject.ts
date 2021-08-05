@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { sleep } from 'sleep';
 import { v4 } from 'uuid';
 import { AsyncObserver } from './AsyncObserver';
+import { Unsubscribe } from './Subject';
 
 interface CheckUpdate {
   (): Promise<boolean> | boolean;
@@ -22,7 +23,10 @@ export class AsyncSubject {
     [id: string]: ObserverData;
   } = {};
 
-  subscribe(observer: AsyncObserver, checkUpdate: CheckUpdate = () => true) {
+  subscribe(
+    observer: AsyncObserver,
+    checkUpdate: CheckUpdate = () => true
+  ): Unsubscribe {
     const id = v4();
     this.observerDatas[id] = {
       observer,
@@ -38,7 +42,7 @@ export class AsyncSubject {
   execAndSubscribe(
     observer: AsyncObserver,
     checkUpdate: CheckUpdate = () => true
-  ) {
+  ): Unsubscribe {
     const id = v4();
     const data = { observer, calling: false, reserved: false, checkUpdate };
     this.observerDatas[id] = data;
