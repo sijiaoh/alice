@@ -2571,16 +2571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-test-renderer@npm:^17.0.1":
-  version: 17.0.1
-  resolution: "@types/react-test-renderer@npm:17.0.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: bd3f8c6c2ae23f270b465106ae81c7e72dc97b64f83b980239bd45a69dcc9f41aada4183f16634320e8d02cede942e46258366a596dbefaae558abad236f4ab6
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:*, @types/react@npm:^17.0.14":
+"@types/react@npm:*":
   version: 17.0.14
   resolution: "@types/react@npm:17.0.14"
   dependencies:
@@ -6320,13 +6311,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hamt_plus@npm:1.0.2":
-  version: 1.0.2
-  resolution: "hamt_plus@npm:1.0.2"
-  checksum: b1b1d65d19546a513cd68ea8e9970b5e76c61549bd395ea7d8f809d439940738cc5a36eaa712668e69099a5fd62cfafb8c34079e392697f31eee04ab5b6d4094
-  languageName: node
-  linkType: hard
-
 "has-ansi@npm:^2.0.0":
   version: 2.0.0
   resolution: "has-ansi@npm:2.0.0"
@@ -10050,19 +10034,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "reactive-class@workspace:packages/reactive-class"
   dependencies:
-    "@types/react": ^17.0.14
-    "@types/react-test-renderer": ^17.0.1
-    "@types/uuid": ^8.3.1
     autobind-decorator: ^2.4.0
     immer: ^9.0.5
     index-generator: "workspace:packages/index-generator"
     npm-run-all: ^4.1.5
     observer-pattern: "workspace:packages/observer-pattern"
-    react: ^17.0.2
-    react-utils: "workspace:packages/react-utils"
-    recoil: ^0.4.0
     typescript: ^4.3.5
-    uuid: ^8.3.2
   languageName: unknown
   linkType: soft
 
@@ -10128,22 +10105,6 @@ __metadata:
   dependencies:
     picomatch: ^2.2.1
   checksum: 7da2fe8d5abf17ae0bf97a052718e16d29fa185f3e461153035728d93642326ae8e44c17b9a9b3a5fa616dff160e96be3184e0323efaac7211f80c0aab5f622b
-  languageName: node
-  linkType: hard
-
-"recoil@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "recoil@npm:0.4.0"
-  dependencies:
-    hamt_plus: 1.0.2
-  peerDependencies:
-    react: ">=16.13.1"
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 263e27b2462516309424c87e1a281deb06109384496c27ca8626e6b4eb081fcb5bdfa0715dc8b50b5389c06828bdf225529496884e5f3800da21c81596b57e0f
   languageName: node
   linkType: hard
 
