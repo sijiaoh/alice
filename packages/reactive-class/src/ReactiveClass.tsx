@@ -3,6 +3,7 @@
 import autobind from 'autobind-decorator';
 import { produce } from 'immer';
 import { AsyncSubject, Unsubscribe } from 'observer-pattern';
+import { equal } from './equal';
 
 interface Selector<T> {
   (): T;
@@ -50,7 +51,7 @@ export class ReactiveClass<T> {
       },
       () => {
         selected = selector();
-        if (selected === prevSelected) return false;
+        if (equal(selected, prevSelected)) return false;
         prevSelected = selected;
         return true;
       }

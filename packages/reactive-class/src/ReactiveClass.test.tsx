@@ -39,28 +39,56 @@ describe(ReactiveClass.name, () => {
   });
 
   describe(ReactiveClass.prototype.subscribe, () => {
-    it('only update when selector value changed', async () => {
-      const some = new SomeClass();
+    describe('selector value is not array or object', () => {
+      it('call callback when value changed', async () => {
+        const some = new SomeClass();
 
-      let updateCount = 0;
-      some.subscribe(
-        (data) => data.num,
-        () => {
-          updateCount += 1;
-        }
-      );
+        let updateCount = 0;
+        some.subscribe(
+          (data) => data.num,
+          () => {
+            updateCount += 1;
+          }
+        );
 
-      some.changeData((data) => {
-        data.num += 1;
+        some.changeData((data) => {
+          data.num += 1;
+        });
+        await flushPromises();
+        expect(updateCount).toBe(1);
+
+        some.changeData((data) => {
+          data.obj.key += 1;
+        });
+        await flushPromises();
+        expect(updateCount).toBe(1);
       });
-      await flushPromises();
-      expect(updateCount).toBe(1);
+    });
 
-      some.changeData((data) => {
-        data.obj.key += 1;
+    describe('selector value is array or object', () => {
+      it('call callback when inner value changed', async () => {
+        const some = new SomeClass();
+
+        let updateCount = 0;
+        some.subscribe(
+          (data) => [data.num, data.str],
+          () => {
+            updateCount += 1;
+          }
+        );
+
+        some.changeData((data) => {
+          data.num += 1;
+        });
+        await flushPromises();
+        expect(updateCount).toBe(1);
+
+        some.changeData((data) => {
+          data.obj.key += 1;
+        });
+        await flushPromises();
+        expect(updateCount).toBe(1);
       });
-      await flushPromises();
-      expect(updateCount).toBe(1);
     });
 
     it('return unsubscribe', async () => {
