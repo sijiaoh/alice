@@ -1,6 +1,6 @@
-import { flushPromises } from 'test-utils';
 import React from 'react';
 import { create, act, ReactTestRenderer } from 'react-test-renderer';
+import { flushPromises } from 'test-utils';
 import { ReactiveClass } from './ReactiveClass';
 
 class SomeClass extends ReactiveClass<{
@@ -128,7 +128,7 @@ describe(ReactiveClass.name, () => {
       let testRenderer!: ReactTestRenderer;
 
       await act(async () => {
-        testRenderer = create(<Component></Component>);
+        testRenderer = create(<Component />);
         await flushPromises();
       });
       expect(testRenderer.toJSON()).toMatchSnapshot();
