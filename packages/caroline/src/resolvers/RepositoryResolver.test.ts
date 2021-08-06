@@ -1,7 +1,7 @@
 import { createUser } from 'nextjs-utils/build/createUser';
 import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { RepositoryResolver } from './RepositoryResolver';
-import { apolloServer } from 'src/apolloServer';
+import { createApolloServer } from 'src/createApolloServer';
 import { UserEntity, RepositoryEntity } from 'src/entities';
 import {
   CreateRepositoryDocument,
@@ -27,7 +27,7 @@ describe(RepositoryResolver.name, () => {
 
   describe(RepositoryResolver.prototype.createRepository.name, () => {
     authorizeTest<CreateRepositoryMutation, CreateRepositoryMutationVariables>(
-      apolloServer,
+      createApolloServer(),
       CreateRepositoryDocument,
       { name: repositoryName }
     );
@@ -37,9 +37,14 @@ describe(RepositoryResolver.name, () => {
       const res = await executeOperation<
         CreateRepositoryMutation,
         CreateRepositoryMutationVariables
-      >(apolloServer, CreateRepositoryDocument, { name: repositoryName }, {
-        req: { user },
-      } as Context);
+      >(
+        createApolloServer(),
+        CreateRepositoryDocument,
+        { name: repositoryName },
+        {
+          req: { user },
+        } as Context
+      );
       expect(res.data?.createRepository.id).toBeTruthy();
       expect(res.data?.createRepository.name).toBe(repositoryName);
     });
@@ -47,7 +52,7 @@ describe(RepositoryResolver.name, () => {
 
   describe(RepositoryResolver.prototype.repositories.name, () => {
     authorizeTest<RepositoriesQuery, RepositoriesQueryVariables>(
-      apolloServer,
+      createApolloServer(),
       RepositoriesDocument,
       {}
     );
@@ -68,7 +73,7 @@ describe(RepositoryResolver.name, () => {
       const res = await executeOperation<
         RepositoriesQuery,
         RepositoriesQueryVariables
-      >(apolloServer, RepositoriesDocument, {}, {
+      >(createApolloServer(), RepositoriesDocument, {}, {
         req: { user },
       } as Context);
 
@@ -84,7 +89,7 @@ describe(RepositoryResolver.name, () => {
 
   describe(RepositoryResolver.prototype.repository.name, () => {
     authorizeTest<RepositoryQuery, RepositoryQueryVariables>(
-      apolloServer,
+      createApolloServer(),
       RepositoryDocument,
       { id: '' }
     );

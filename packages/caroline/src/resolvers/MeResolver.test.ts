@@ -1,7 +1,7 @@
 import { createUser } from 'nextjs-utils/build/createUser';
 import { clearDatabaseBetweenEachTest } from '../../../test-utils/build';
 import { MeResolver } from './MeResolver';
-import { apolloServer } from 'src/apolloServer';
+import { createApolloServer } from 'src/createApolloServer';
 import { UserEntity } from 'src/entities';
 import { MeDocument, MeQuery, MeQueryVariables } from 'src/generated/graphql';
 import { loginOptions } from 'src/loginOptions';
@@ -18,7 +18,7 @@ describe(MeResolver.name, () => {
       it('return self profile', async () => {
         const user = await createUser<UserEntity>(loginOptions);
         const res = await executeOperation<MeQuery, MeQueryVariables>(
-          apolloServer,
+          createApolloServer(),
           MeDocument,
           {},
           {
@@ -30,7 +30,11 @@ describe(MeResolver.name, () => {
     });
 
     describe('not authorized', () => {
-      authorizeTest<MeQuery, MeQueryVariables>(apolloServer, MeDocument, {});
+      authorizeTest<MeQuery, MeQueryVariables>(
+        createApolloServer(),
+        MeDocument,
+        {}
+      );
     });
   });
 });

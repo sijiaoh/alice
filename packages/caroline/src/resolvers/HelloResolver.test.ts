@@ -1,5 +1,5 @@
 import { HelloResolver } from './HelloResolver';
-import { apolloServer } from 'src/apolloServer';
+import { createApolloServer } from 'src/createApolloServer';
 import {
   HelloDocument,
   HelloQuery,
@@ -12,7 +12,7 @@ describe(HelloResolver.name, () => {
   describe(HelloResolver.prototype.hello.name, () => {
     it('return hello world string', async () => {
       const res = await executeOperation<HelloQuery, HelloQueryVariables>(
-        apolloServer,
+        createApolloServer(),
         HelloDocument,
         {},
         {} as Context
