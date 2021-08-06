@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 
+import { NextApiRequest, NextApiResponse } from 'next';
 import { NextHandler } from 'next-connect';
 import { apiConnect } from 'src/apiConnect';
 import { apolloServer } from 'src/apolloServer';
 import { serverConfig } from 'src/serverConfig';
-import { NextApiRequest, NextApiResponse } from 'next';
 
 export const config = {
   api: {

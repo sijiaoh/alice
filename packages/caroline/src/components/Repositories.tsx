@@ -1,5 +1,5 @@
-import { App } from 'src/App';
 import Link from 'next/link';
+import { App } from 'src/App';
 
 export const Repositories = () => {
   const app = App.useApp();

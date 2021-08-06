@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro';
 import { DocumentNode } from 'graphql';
-import { Context } from 'src/server-types';
 import { executeOperation } from './executeOperation';
+import { Context } from 'src/server-types';
 
 export const authorizeTest = <T, U>(
   apolloServer: ApolloServer,

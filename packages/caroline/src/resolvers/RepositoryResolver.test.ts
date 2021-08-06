@@ -17,8 +17,8 @@ import {
 import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 import { Context } from 'src/server-types';
-import { executeOperation } from 'src/test/executeOperation';
 import { authorizeTest } from 'src/test/authorizeTest';
+import { executeOperation } from 'src/test/executeOperation';
 
 clearDatabaseBetweenEachTest(prepareConnection);
 
