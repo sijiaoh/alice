@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import { createContext, useContext, useRef } from 'react';
 import { Props } from 'react-utils';
+import { RepositoryManager } from './RepositoryManager';
 import { Me } from 'src/Me';
 import { Locale } from 'src/locale/Locale';
 
@@ -26,6 +27,7 @@ export class App {
 
   me = new Me();
   locale = new Locale();
+  repositoryManager = new RepositoryManager();
 
   constructor() {
     App.instance = this;

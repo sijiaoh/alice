@@ -1,7 +1,10 @@
 import autobind from 'autobind-decorator';
+import { immerable } from 'immer';
 
 @autobind
 export class Repository {
+  [immerable] = true;
+
   id: string;
   name: string;
 

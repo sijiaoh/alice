@@ -1,17 +1,25 @@
+import { ReactiveClass } from '../../reactive-class/build';
 import { Repository } from './Repository';
+import { RepositoryType } from './generated/graphql';
 import { sdk } from './sdk';
 
-type RepositoryList = { id: string; name: string }[];
+type RepositoryList = RepositoryType[];
 type Repositories = Repository[];
 
-export class RepositoryManager {
-  repositoryList: RepositoryList = [];
-  repositories: Repositories = [];
+export class RepositoryManager extends ReactiveClass<{
+  repositoryList: RepositoryList;
+  repositories: Repositories;
+}> {
+  constructor() {
+    super({ repositoryList: [], repositories: [] });
+  }
 
   async fetchRepositoryList(): Promise<RepositoryList> {
-    // TODO: サーバーから取得する。
-    this.repositoryList = await Promise.resolve([]);
-    return this.repositoryList;
+    const { repositories } = await sdk.Repositories();
+    this.changeData((data) => {
+      data.repositoryList = repositories;
+    });
+    return this.data.repositoryList;
   }
 
   async create(name: string) {
@@ -22,16 +30,22 @@ export class RepositoryManager {
   }
 
   async load(id: string) {
-    const existsRepository = this.repositories.find(
+    const existsRepository = this.data.repositories.find(
       (repository) => repository.id === id
     );
     if (existsRepository) return existsRepository;
 
     const { repository } = await sdk.Repository({ id });
-    if (!this.repositoryList.some((elm) => elm.id === repository.id))
-      this.repositoryList.push({ id, name: repository.name });
-    if (!this.repositories.some((repo) => repo.id === id))
-      this.repositories.push(repository);
+    if (!this.data.repositoryList.some((elm) => elm.id === repository.id)) {
+      this.changeData((data) => {
+        data.repositoryList.push({ id, name: repository.name });
+      });
+    }
+    if (!this.data.repositories.some((repo) => repo.id === id)) {
+      this.changeData((data) => {
+        data.repositories.push(repository);
+      });
+    }
 
     return repository;
   }
