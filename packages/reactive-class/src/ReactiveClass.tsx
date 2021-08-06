@@ -66,7 +66,7 @@ export class ReactiveClass<T> {
       return this.subscribe(selector, (d) => {
         setData(d);
       });
-    }, [selector]);
+    }, [selector, setData]);
     return data;
   }
 
