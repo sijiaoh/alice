@@ -12,7 +12,7 @@ export class Locale extends ReactiveClass<{
   private prevLang: Lang | undefined;
 
   constructor() {
-    super(Locale.name, { lang: 'ja', l: undefined });
+    super({ lang: 'ja', l: undefined });
     void this.changeLanguage(this.data.lang);
   }
 
@@ -33,9 +33,9 @@ export class Locale extends ReactiveClass<{
         break;
     }
 
-    this.changeValue((value) => {
-      value.lang = newLang;
-      value.l = newL;
+    this.changeData((data) => {
+      data.lang = newLang;
+      data.l = newL;
     });
   }
 }

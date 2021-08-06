@@ -8,7 +8,7 @@ type MeData = Omit<UserType, '__typename'> | undefined;
 @autobind
 export class Me extends ReactiveClass<MeData> {
   constructor() {
-    super(Me.name, undefined);
+    super(undefined);
     void this.load();
   }
 
@@ -18,7 +18,9 @@ export class Me extends ReactiveClass<MeData> {
     const me = await sdk
       .Me()
       .then((res) => res.me)
-      .catch(() => null);
+      .catch((e) => {
+        return null;
+      });
     if (!me) return;
 
     this.data = {

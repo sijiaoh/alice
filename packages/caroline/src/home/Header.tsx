@@ -13,8 +13,8 @@ export const Header = () => {
     alignItems: 'center',
   };
   const app = App.useApp();
-  const [{ l }] = app.locale.useState();
-  const [meValue] = app.me.useState();
+  const l = app.locale.useSelector((data) => data.l);
+  const meData = app.me.useSelector();
 
   return (
     <>
@@ -45,8 +45,8 @@ export const Header = () => {
           </HeaderButton>
         </div>
         <div css={partsCss}>
-          {meValue ? (
-            meValue.penName
+          {meData ? (
+            meData.penName
           ) : (
             <HeaderButton
               onClick={async () => {
