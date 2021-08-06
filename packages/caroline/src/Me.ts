@@ -18,7 +18,7 @@ export class Me extends ReactiveClass<MeData> {
     const me = await sdk
       .Me()
       .then((res) => res.me)
-      .catch((e) => {
+      .catch(() => {
         return null;
       });
     if (!me) return;

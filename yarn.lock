@@ -3758,6 +3758,7 @@ __metadata:
     cookie-session: ^1.4.0
     graphql: ^15.5.1
     graphql-request: ^3.5.0
+    immer: ^9.0.5
     index-generator: "workspace:packages/index-generator"
     micro: ^9.3.4
     mysql-docker: "workspace:packages/mysql-docker"

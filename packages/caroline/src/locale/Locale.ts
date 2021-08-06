@@ -33,9 +33,9 @@ export class Locale extends ReactiveClass<{
         break;
     }
 
-    this.changeData((data) => {
-      data.lang = newLang;
-      data.l = newL;
+    this.changeData((d) => {
+      d.lang = newLang;
+      d.l = newL;
     });
   }
 }
