@@ -10,19 +10,30 @@ import {
   RepositoriesDocument,
   RepositoriesQuery,
   RepositoriesQueryVariables,
+  RepositoryDocument,
+  RepositoryQuery,
+  RepositoryQueryVariables,
 } from 'src/generated/graphql';
 import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 import { Context } from 'src/server-types';
 import { executeOperation } from 'src/test/executeOperation';
+import { authorizeTest } from 'src/test/authorizeTest';
 
 clearDatabaseBetweenEachTest(prepareConnection);
 
 describe(RepositoryResolver.name, () => {
+  const repositoryName = 'repository name';
+
   describe(RepositoryResolver.prototype.createRepository.name, () => {
+    authorizeTest<CreateRepositoryMutation, CreateRepositoryMutationVariables>(
+      apolloServer,
+      CreateRepositoryDocument,
+      { name: repositoryName }
+    );
+
     it('can create new repository to user', async () => {
       const user = await createUser(loginOptions);
-      const repositoryName = 'repository name';
       const res = await executeOperation<
         CreateRepositoryMutation,
         CreateRepositoryMutationVariables
@@ -35,13 +46,18 @@ describe(RepositoryResolver.name, () => {
   });
 
   describe(RepositoryResolver.prototype.repositories.name, () => {
+    authorizeTest<RepositoriesQuery, RepositoriesQueryVariables>(
+      apolloServer,
+      RepositoriesDocument,
+      {}
+    );
+
     it("return user's repositories", async () => {
       const createRepository = async (user: UserEntity, name: string) => {
         return RepositoryEntity.create({ name, user }).save();
       };
 
       const user = await createUser<UserEntity>(loginOptions);
-      const repositoryName = 'repository name';
 
       const repositories = await Promise.all(
         [...Array(5)].map(async () => {
@@ -64,5 +80,13 @@ describe(RepositoryResolver.name, () => {
           .sort((a, b) => a.id.localeCompare(b.id))
       );
     });
+  });
+
+  describe(RepositoryResolver.prototype.repository.name, () => {
+    authorizeTest<RepositoryQuery, RepositoryQueryVariables>(
+      apolloServer,
+      RepositoryDocument,
+      { id: '' }
+    );
   });
 });

@@ -8,6 +8,7 @@ import { loginOptions } from 'src/loginOptions';
 import { prepareConnection } from 'src/prepareConnection';
 import { Context } from 'src/server-types';
 import { executeOperation } from 'src/test/executeOperation';
+import { authorizeTest } from 'src/test/authorizeTest';
 
 clearDatabaseBetweenEachTest(prepareConnection);
 
@@ -29,15 +30,7 @@ describe(MeResolver.name, () => {
     });
 
     describe('not authorized', () => {
-      it('return error', async () => {
-        const res = await executeOperation<MeQuery, MeQueryVariables>(
-          apolloServer,
-          MeDocument,
-          {},
-          { req: {} } as Context
-        );
-        expect(res.errors).toHaveLength(1);
-      });
+      authorizeTest<MeQuery, MeQueryVariables>(apolloServer, MeDocument, {});
     });
   });
 });

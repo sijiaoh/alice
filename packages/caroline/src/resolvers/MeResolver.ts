@@ -1,13 +1,13 @@
-import { Resolver, Query, Ctx } from 'type-graphql';
+import { Resolver, Query, Ctx, Authorized } from 'type-graphql';
 import { Context } from 'src/server-types';
 import { UserType } from 'src/types/UserType';
 
 @Resolver()
 export class MeResolver {
+  @Authorized()
   @Query(() => UserType)
   me(@Ctx() { req }: Context): UserType {
-    const { user } = req;
-    if (!user) throw new Error('Authorization required.');
+    const user = req.user!;
     const { id, penName } = user;
     return { id, penName };
   }
