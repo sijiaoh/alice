@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactiveClass  rerender component when selected value changed 1`] = `
+Array [
+  "0",
+  "0",
+]
+`;
+
+exports[`ReactiveClass  rerender component when selected value changed 2`] = `
+Array [
+  "hello",
+  "0",
+]
+`;
+
+exports[`ReactiveClass  rerender component when selected value changed 3`] = `
+Array [
+  "hello",
+  "0",
+]
+`;
+
+exports[`ReactiveClass  rerender component when selected value changed 4`] = `
+Array [
+  "hello2",
+  "1",
+]
+`;

@@ -3,6 +3,7 @@
 import autobind from 'autobind-decorator';
 import { produce } from 'immer';
 import { AsyncSubject, Unsubscribe } from 'observer-pattern';
+import { useEffect, useState } from 'react';
 import { equal } from './equal';
 
 interface Selector<T> {
@@ -58,6 +59,16 @@ export class ReactiveClass<T> {
     );
   }
 
+  static useSelector<T>(selector: Selector<T>) {
+    const [data, setData] = useState(selector());
+    useEffect(() => {
+      return this.subscribe(selector, (d) => {
+        setData(d);
+      });
+    }, [selector]);
+    return data;
+  }
+
   private static update() {
     this.subject.update();
   }
@@ -99,5 +110,12 @@ export class ReactiveClass<T> {
 
     const selector = callbackOrSelector as DataSelector<T, U>;
     return ReactiveClass.subscribe(() => selector(this.data), callback);
+  }
+
+  useSelector(): T;
+  useSelector<U>(selector: DataSelector<T, U>): U;
+  useSelector<U>(selector: DataSelector<T, U | T> = (data) => data) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return ReactiveClass.useSelector(() => selector(this.data));
   }
 }

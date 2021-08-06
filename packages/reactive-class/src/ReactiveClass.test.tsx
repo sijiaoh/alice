@@ -1,4 +1,6 @@
 import { flushPromises } from 'test-utils';
+import React from 'react';
+import { create, act, ReactTestRenderer } from 'react-test-renderer';
 import { ReactiveClass } from './ReactiveClass';
 
 class SomeClass extends ReactiveClass<{
@@ -112,6 +114,48 @@ describe(ReactiveClass.name, () => {
       });
       await flushPromises();
       expect(updateCount).toBe(1);
+    });
+  });
+
+  describe(ReactiveClass.prototype.useSelector.name, () => {
+    it('rerender component when selected value changed', async () => {
+      const some = new SomeClass();
+
+      const Component = () => {
+        const str = some.useSelector((data) => data.str);
+        return <>{[str, some.data.num]}</>;
+      };
+      let testRenderer!: ReactTestRenderer;
+
+      await act(async () => {
+        testRenderer = create(<Component></Component>);
+        await flushPromises();
+      });
+      expect(testRenderer.toJSON()).toMatchSnapshot();
+
+      await act(async () => {
+        some.changeData((data) => {
+          data.str = 'hello';
+        });
+        await flushPromises();
+      });
+      expect(testRenderer.toJSON()).toMatchSnapshot();
+
+      await act(async () => {
+        some.changeData((data) => {
+          data.num += 1;
+        });
+        await flushPromises();
+      });
+      expect(testRenderer.toJSON()).toMatchSnapshot();
+
+      await act(async () => {
+        some.changeData((data) => {
+          data.str = 'hello2';
+        });
+        await flushPromises();
+      });
+      expect(testRenderer.toJSON()).toMatchSnapshot();
     });
   });
 });

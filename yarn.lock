@@ -2571,6 +2571,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-test-renderer@npm:^17.0.1":
+  version: 17.0.1
+  resolution: "@types/react-test-renderer@npm:17.0.1"
+  dependencies:
+    "@types/react": "*"
+  checksum: bd3f8c6c2ae23f270b465106ae81c7e72dc97b64f83b980239bd45a69dcc9f41aada4183f16634320e8d02cede942e46258366a596dbefaae558abad236f4ab6
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*":
   version: 17.0.14
   resolution: "@types/react@npm:17.0.14"
@@ -2579,6 +2588,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 3c5373845b0869d9ce3db16917c87707cdfdb6c08d9ca7ed90a2a097cb3cbec8d037d37e81c3cf5af721d92f8fdc62431405f1874f9a02dea6ec05e5d81e77fe
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^17.0.15":
+  version: 17.0.15
+  resolution: "@types/react@npm:17.0.15"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 427cca327d7a3c46af90e13ca3e1fe5e9c0dc1142df73c9b97c010ea420eb753776a58aec2e783fd669521dc87e89932bd17135fce2b2642aaa475216ac25914
   languageName: node
   linkType: hard
 
@@ -10034,11 +10054,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "reactive-class@workspace:packages/reactive-class"
   dependencies:
+    "@types/react": ^17.0.15
+    "@types/react-test-renderer": ^17.0.1
     autobind-decorator: ^2.4.0
     immer: ^9.0.5
     index-generator: "workspace:packages/index-generator"
     npm-run-all: ^4.1.5
     observer-pattern: "workspace:packages/observer-pattern"
+    react: ^17.0.2
+    react-test-renderer: ^17.0.2
     test-utils: "workspace:packages/test-utils"
     typescript: ^4.3.5
   languageName: unknown
