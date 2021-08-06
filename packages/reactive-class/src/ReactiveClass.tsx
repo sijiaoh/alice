@@ -3,7 +3,8 @@
 import autobind from 'autobind-decorator';
 import { produce } from 'immer';
 import { AsyncSubject, Unsubscribe } from 'observer-pattern';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSafeState } from 'react-utils';
 import { equal } from './equal';
 
 interface Selector<T> {
@@ -60,7 +61,7 @@ export class ReactiveClass<T> {
   }
 
   static useSelector<T>(selector: Selector<T>) {
-    const [data, setData] = useState(selector());
+    const [data, setData] = useSafeState(selector());
     useEffect(() => {
       return this.subscribe(selector, (d) => {
         setData(d);

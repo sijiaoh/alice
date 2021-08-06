@@ -9694,6 +9694,7 @@ __metadata:
     observer-pattern: "workspace:packages/observer-pattern"
     react: ^17.0.2
     react-test-renderer: ^17.0.2
+    react-utils: "workspace:packages/react-utils"
     test-utils: "workspace:packages/test-utils"
     typescript: ^4.3.5
   languageName: unknown
