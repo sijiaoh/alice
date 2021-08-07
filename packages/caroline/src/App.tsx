@@ -2,6 +2,7 @@ import autobind from 'autobind-decorator';
 import { createContext, useContext, useRef } from 'react';
 import { Props } from 'react-utils';
 import { RepositoryManager } from './RepositoryManager';
+// eslint-disable-next-line import/no-cycle
 import { Me } from 'src/Me';
 import { Locale } from 'src/locale/Locale';
 

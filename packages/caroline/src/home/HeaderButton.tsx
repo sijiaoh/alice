@@ -1,11 +1,20 @@
+import { MouseEvent, KeyboardEvent } from 'react';
 import { Props } from 'react-utils';
 
 export const HeaderButton = ({
+  className,
   onClick,
   children,
-}: Props<{ onClick: () => Promise<void> | void }>) => {
+}: Props<{
+  onClick: (
+    e:
+      | MouseEvent<HTMLDivElement, globalThis.MouseEvent>
+      | KeyboardEvent<HTMLDivElement>
+  ) => Promise<void> | void;
+}>) => {
   return (
     <div
+      className={className}
       css={{
         minWidth: '1em',
         padding: '0 .5em',

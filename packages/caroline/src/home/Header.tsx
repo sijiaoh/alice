@@ -1,8 +1,11 @@
 import { css, Global } from '@emotion/react';
 import { useRouter } from 'next/dist/client/router';
 import { Attributes } from 'react';
+import { useSafeState } from 'react-utils';
 import { HeaderButton } from './HeaderButton';
 import { App } from 'src/App';
+import { Vector } from 'src/Vector';
+import { PopUp } from 'src/components/PopUp';
 
 export const Header = () => {
   const router = useRouter();
@@ -15,6 +18,20 @@ export const Header = () => {
   const app = App.useApp();
   const l = app.locale.useSelector((data) => data.l);
   const meData = app.me.useSelector();
+  const [popUpPos, setPopUpPos] = useSafeState<Vector | undefined>(undefined);
+
+  const dropdown = popUpPos ? (
+    <PopUp position={popUpPos} placement="left-start">
+      <HeaderButton
+        onClick={async () => {
+          await router.push('/repositories');
+        }}
+        css={{ padding: '0.5em', backgroundColor: 'rgb(230,230,230)' }}
+      >
+        {l?.repositories}
+      </HeaderButton>
+    </PopUp>
+  ) : null;
 
   return (
     <>
@@ -46,7 +63,24 @@ export const Header = () => {
         </div>
         <div css={partsCss}>
           {meData ? (
-            meData.penName
+            <>
+              <HeaderButton
+                onClick={(e) => {
+                  if (popUpPos) {
+                    setPopUpPos(undefined);
+                  } else {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    setPopUpPos({
+                      x: rect.x + rect.width,
+                      y: rect.y + rect.height,
+                    });
+                  }
+                }}
+              >
+                {meData.penName}
+              </HeaderButton>
+              {dropdown}
+            </>
           ) : (
             <HeaderButton
               onClick={async () => {

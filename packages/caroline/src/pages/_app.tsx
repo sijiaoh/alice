@@ -9,6 +9,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <App.Provider>
       <Component {...pageProps} />
+      <div id="pop-ups" />
     </App.Provider>
   );
 }

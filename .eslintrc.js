@@ -30,6 +30,7 @@ const tsRules = {
   '@typescript-eslint/promise-function-async': 'error',
 
   'react/require-default-props': 'off',
+  'react/prop-types': 'off',
 
   'react-hooks/exhaustive-deps': 'warn',
 };
