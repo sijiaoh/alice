@@ -1,4 +1,4 @@
-import { ReactiveClass } from '../../reactive-class/build';
+import { ReactiveClass } from 'reactive-class';
 import { Repository } from './Repository';
 import { RepositoryType } from './generated/graphql';
 import { sdk } from './sdk';

@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
-import { Unsubscribe } from '../../observer-pattern/build';
-import { ReactiveClass } from '../../reactive-class/build';
+import { Unsubscribe } from 'observer-pattern';
+import { ReactiveClass } from 'reactive-class';
 // eslint-disable-next-line import/no-cycle
 import { App } from './App';
 import { sdk } from './sdk';

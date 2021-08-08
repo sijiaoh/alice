@@ -1,5 +1,5 @@
 import { createUser } from 'nextjs-utils/build/createUser';
-import { clearDatabaseBetweenEachTest } from '../../../test-utils/build';
+import { clearDatabaseBetweenEachTest } from 'test-utils';
 import { MeResolver } from './MeResolver';
 import { createApolloServer } from 'src/createApolloServer';
 import { UserEntity } from 'src/entities';

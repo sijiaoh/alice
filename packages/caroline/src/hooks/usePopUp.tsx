@@ -1,13 +1,13 @@
 import { useCallback, useRef } from 'react';
 import { Props, useSafeState } from 'react-utils';
-import { PopUp } from 'src/components/PopUp';
 import { Vector } from 'src/Vector';
+import { PopUp } from 'src/components/PopUp';
 
 export const usePopUp = () => {
   const [popUpPos, setPopUpPos] = useSafeState<Vector | undefined>(undefined);
   const closePopUp = useCallback(() => {
     setPopUpPos(undefined);
-  }, []);
+  }, [setPopUpPos]);
   const addedEventListenerRef = useRef(false);
 
   return {
