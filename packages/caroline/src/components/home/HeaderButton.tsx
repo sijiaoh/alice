@@ -1,16 +1,20 @@
 import { MouseEvent, KeyboardEvent } from 'react';
 import { Props } from 'react-utils';
 
+export interface HeaderButtonOnClick {
+  (
+    e:
+      | MouseEvent<HTMLDivElement, globalThis.MouseEvent>
+      | KeyboardEvent<HTMLDivElement>
+  ): Promise<void> | void;
+}
+
 export const HeaderButton = ({
   className,
   onClick,
   children,
 }: Props<{
-  onClick: (
-    e:
-      | MouseEvent<HTMLDivElement, globalThis.MouseEvent>
-      | KeyboardEvent<HTMLDivElement>
-  ) => Promise<void> | void;
+  onClick: HeaderButtonOnClick;
 }>) => {
   return (
     <div

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import { useSafeState } from 'react-utils';
 import { HeaderButton } from './HeaderButton';
+import { HeaderDropdownButton } from './HeaderDropdownButton';
 import { App } from 'src/App';
 import { usePopUp } from 'src/hooks/usePopUp';
 import { sdk } from 'src/sdk';
@@ -26,17 +27,13 @@ export const DebugLogin = () => {
         {l?.login}
       </HeaderButton>
       <PopUpComponent>
-        <HeaderButton
+        <HeaderDropdownButton
           onClick={async () => {
             await router.push('/api/login/google');
           }}
-          css={{
-            padding: '0.5em',
-            backgroundColor: 'rgb(230,230,230)',
-          }}
         >
           Normal login
-        </HeaderButton>
+        </HeaderDropdownButton>
         <input
           value={id}
           onChange={(e) => {
@@ -46,18 +43,14 @@ export const DebugLogin = () => {
             e.stopPropagation();
           }}
         />
-        <HeaderButton
+        <HeaderDropdownButton
           onClick={async () => {
             await sdk.DebugLogin({ id });
             document.location.reload();
           }}
-          css={{
-            padding: '0.5em',
-            backgroundColor: 'rgb(230,230,230)',
-          }}
         >
           Debug login
-        </HeaderButton>
+        </HeaderDropdownButton>
       </PopUpComponent>
     </>
   );
