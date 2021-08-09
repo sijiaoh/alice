@@ -29,7 +29,7 @@ export class Me extends ReactiveClass<MeData> {
     if (!me) return;
 
     this.unsubscribeTranslate?.();
-    this.unsubscribeTranslate = ReactiveClass.subscribe(
+    this.unsubscribeTranslate = ReactiveClass.execAndSubscribe(
       () => ({
         l: App.instance.locale.data.l,
         meData: this.data,
