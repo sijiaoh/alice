@@ -34,12 +34,18 @@ export class ReactiveClass<T> {
     callback: Callback<T>
   ): Unsubscribe;
   static subscribe<T>(
+    selector: Selector<T>,
+    callback: Callback<T>,
+    func: 'subscribe' | 'execAndSubscribe'
+  ): Unsubscribe;
+  static subscribe<T>(
     selectorOrCallback: Selector<T> | VoidCallback,
-    callback?: Callback<T>
+    callback?: Callback<T>,
+    subscribeFunc: 'subscribe' | 'execAndSubscribe' = 'subscribe'
   ): Unsubscribe {
     if (!callback) {
       const cb = selectorOrCallback as VoidCallback;
-      return this.subject.subscribe(async () => {
+      return this.subject[subscribeFunc](async () => {
         await cb();
       });
     }
@@ -47,7 +53,7 @@ export class ReactiveClass<T> {
     let prevSelected: T | undefined;
     let selected: T;
     const selector = selectorOrCallback as Selector<T>;
-    return this.subject.subscribe(
+    return this.subject[subscribeFunc](
       async () => {
         await callback(selected);
       },
@@ -57,6 +63,22 @@ export class ReactiveClass<T> {
         prevSelected = selected;
         return true;
       }
+    );
+  }
+
+  static execAndSubscribe(callback: VoidCallback): Unsubscribe;
+  static execAndSubscribe<T>(
+    selector: Selector<T>,
+    callback: Callback<T>
+  ): Unsubscribe;
+  static execAndSubscribe<T>(
+    selectorOrCallback: Selector<T> | VoidCallback,
+    callback?: Callback<T>
+  ): Unsubscribe {
+    return this.subscribe(
+      selectorOrCallback as Selector<T>,
+      callback as Callback<T>,
+      'execAndSubscribe'
     );
   }
 
