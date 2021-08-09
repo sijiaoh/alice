@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useMemo } from 'react';
 import { Props, useSafeState } from 'react-utils';
 import { Vector } from 'src/Vector';
 import { PopUp } from 'src/components/PopUp';
@@ -10,31 +10,38 @@ export const usePopUp = () => {
   }, [setPopUpPos]);
   const addedEventListenerRef = useRef(false);
 
-  return {
-    PopUpComponent: ({ className, children }: Props) =>
-      popUpPos ? (
-        <PopUp className={className} position={popUpPos} placement="left-start">
-          {children}
-        </PopUp>
-      ) : null,
-    openPopUp: (position: Vector) => {
-      if (addedEventListenerRef.current) {
-        document.removeEventListener('click', closePopUp);
-        addedEventListenerRef.current = false;
-      }
-      setTimeout(() => {
+  return useMemo(
+    () => ({
+      PopUpComponent: ({ className, children }: Props) =>
+        popUpPos ? (
+          <PopUp
+            className={className}
+            position={popUpPos}
+            placement="left-start"
+          >
+            {children}
+          </PopUp>
+        ) : null,
+      openPopUp: (position: Vector) => {
         if (addedEventListenerRef.current) {
           document.removeEventListener('click', closePopUp);
           addedEventListenerRef.current = false;
         }
-        document.addEventListener('click', closePopUp);
-        addedEventListenerRef.current = true;
-      }, 0);
-      if (popUpPos) {
-        setPopUpPos(undefined);
-      } else {
-        setPopUpPos(position);
-      }
-    },
-  };
+        setTimeout(() => {
+          if (addedEventListenerRef.current) {
+            document.removeEventListener('click', closePopUp);
+            addedEventListenerRef.current = false;
+          }
+          document.addEventListener('click', closePopUp);
+          addedEventListenerRef.current = true;
+        }, 0);
+        if (popUpPos) {
+          setPopUpPos(undefined);
+        } else {
+          setPopUpPos(position);
+        }
+      },
+    }),
+    [closePopUp, popUpPos, setPopUpPos]
+  );
 };

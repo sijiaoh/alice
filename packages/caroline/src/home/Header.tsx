@@ -1,9 +1,11 @@
 import { css, Global } from '@emotion/react';
 import { useRouter } from 'next/dist/client/router';
 import { Attributes } from 'react';
+import { DebugLogin } from './DebugLogin';
 import { HeaderButton } from './HeaderButton';
+import { UserMenu } from './UserMenu';
 import { App } from 'src/App';
-import { usePopUp } from 'src/hooks/usePopUp';
+import { env } from 'src/env';
 
 export const Header = () => {
   const router = useRouter();
@@ -16,7 +18,6 @@ export const Header = () => {
   const app = App.useApp();
   const l = app.locale.useSelector((data) => data.l);
   const meData = app.me.useSelector();
-  const { PopUpComponent, openPopUp } = usePopUp();
 
   return (
     <>
@@ -48,32 +49,9 @@ export const Header = () => {
         </div>
         <div css={partsCss}>
           {meData ? (
-            <>
-              <HeaderButton
-                onClick={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  openPopUp({
-                    x: rect.x + rect.width,
-                    y: rect.y + rect.height,
-                  });
-                }}
-              >
-                {meData.penName}
-              </HeaderButton>
-              <PopUpComponent>
-                <HeaderButton
-                  onClick={async () => {
-                    await router.push('/repositories');
-                  }}
-                  css={{
-                    padding: '0.5em',
-                    backgroundColor: 'rgb(230,230,230)',
-                  }}
-                >
-                  {l?.repositories}
-                </HeaderButton>
-              </PopUpComponent>
-            </>
+            <UserMenu />
+          ) : env === 'development' ? (
+            <DebugLogin />
           ) : (
             <HeaderButton
               onClick={async () => {

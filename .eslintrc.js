@@ -13,6 +13,7 @@ const tsRules = {
   'no-void': 'off',
   'no-param-reassign': 'off',
   'no-underscore-dangle': 'off',
+  'no-nested-ternary': 'off',
 
   'import/prefer-default-export': 'off',
   'import/no-default-export': 'error',
