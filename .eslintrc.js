@@ -1,4 +1,5 @@
-const { packages } = require('./scripts/utils');
+const path = require('path');
+const { packages, toPackagePath } = require('./scripts/utils');
 
 const tsExtends = [
   'airbnb-typescript',
@@ -76,12 +77,12 @@ module.exports = {
       settings: {
         'import/resolver': {
           typescript: {
-            project: `packages/${pkg}/tsconfig.eslint.json`,
+            project: path.join(toPackagePath(pkg), 'tsconfig.eslint.json'),
           },
         },
       },
       parserOptions: {
-        project: `packages/${pkg}/tsconfig.eslint.json`,
+        project: path.join(toPackagePath(pkg), 'tsconfig.eslint.json'),
       },
     })),
     ...nextjsProjects.map((project) => ({
@@ -96,7 +97,7 @@ module.exports = {
         '@typescript-eslint/lines-between-class-members': 'off',
         '@next/next/no-html-link-for-pages': [
           'error',
-          `packages/${project}/src/pages`,
+          path.join(toPackagePath(project), 'src', 'pages'),
         ],
       },
     })),
