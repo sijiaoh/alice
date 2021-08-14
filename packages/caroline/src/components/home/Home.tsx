@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { Props } from 'react-utils';
-import { Col } from './Col';
+import { Col } from '../Col';
+import { Row } from '../Row';
 import { Header } from './Header';
-import { Row } from './Row';
 
 const Text = ({ className, children }: Props) => {
   return <div className={className}>{children}</div>;
