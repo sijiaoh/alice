@@ -25,6 +25,7 @@
     "apollo-server-micro": "^3.1.2",
     "autobind-decorator": "^2.4.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "classnames": "^2.3.1",
     "cookie-session": "^1.4.0",
     "graphql": "^15.5.1",
     "graphql-request": "^3.5.0",

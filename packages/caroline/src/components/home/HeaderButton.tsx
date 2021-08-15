@@ -1,5 +1,6 @@
 import { MouseEvent, KeyboardEvent } from 'react';
 import { Props } from 'react-utils';
+import { Button } from '../Button';
 
 export interface HeaderButtonOnClick {
   (
@@ -17,7 +18,7 @@ export const HeaderButton = ({
   onClick: HeaderButtonOnClick;
 }>) => {
   return (
-    <div
+    <Button
       className={className}
       css={{
         minWidth: '1em',
@@ -27,16 +28,10 @@ export const HeaderButton = ({
         alignItems: 'center',
         cursor: 'pointer',
         backgroundColor: 'rgb(255,255,255)',
-        ':hover': {
-          backgroundColor: 'rgb(200,200,200)',
-        },
       }}
       onClick={onClick}
-      onKeyPress={onClick}
-      role="button"
-      tabIndex={0}
     >
       {children}
-    </div>
+    </Button>
   );
 };

@@ -3763,6 +3763,7 @@ __metadata:
     apollo-server-micro: ^3.1.2
     autobind-decorator: ^2.4.0
     babel-plugin-transform-typescript-metadata: ^0.3.2
+    classnames: ^2.3.1
     cookie-session: ^1.4.0
     graphql: ^15.5.1
     graphql-request: ^3.5.0
@@ -3963,6 +3964,13 @@ __metadata:
   version: 2.2.6
   resolution: "classnames@npm:2.2.6"
   checksum: 490eaeca5931846737ffd33e472a701d268d5b8bc5717dd4cf108a127b06e86e05350e06799abbbe763a0e4c945b4217f6700b7ae00ddc703505682c370e5cf2
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 57d536edede609f81425d24b062d8d720a466565faf1e38d32c881e883920baa71519ac70c7b565e9cd39201fb1c1ff9bdf8aabf8e26544bac481e7924867c83
   languageName: node
   linkType: hard
 
