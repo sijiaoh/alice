@@ -31,6 +31,7 @@ const tsRules = {
   '@typescript-eslint/no-floating-promises': 'error',
   '@typescript-eslint/promise-function-async': 'error',
 
+  'react/react-in-jsx-scope': 'off',
   'react/require-default-props': 'off',
   'react/prop-types': 'off',
 
@@ -92,7 +93,6 @@ module.exports = {
         ...tsRules,
         'import/prefer-default-export': 'off',
         'import/no-default-export': 'error',
-        'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/lines-between-class-members': 'off',
         '@next/next/no-html-link-for-pages': [

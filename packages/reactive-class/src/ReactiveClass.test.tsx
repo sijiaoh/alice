@@ -1,4 +1,3 @@
-import React from 'react';
 import { create, act, ReactTestRenderer } from 'react-test-renderer';
 import { flushPromises } from 'test-utils';
 import { ReactiveClass } from './ReactiveClass';

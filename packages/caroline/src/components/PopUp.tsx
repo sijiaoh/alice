@@ -1,5 +1,5 @@
 import { Placement } from '@popperjs/core';
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { usePopper } from 'react-popper';
 import { Props, useSafeState } from 'react-utils';
