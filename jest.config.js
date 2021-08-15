@@ -9,9 +9,7 @@ module.exports = {
   moduleDirectories: [`packages/${pkg}`, 'node_modules'],
   globals: {
     'ts-jest': {
-      tsconfig: {
-        baseUrl: `packages/${pkg}`,
-      },
+      tsconfig: `packages/${pkg}/tsconfig.test.json`,
     },
   },
 };
