@@ -1,1 +1,0 @@
-export PROJECT_CWD=$(git rev-parse --show-toplevel)
